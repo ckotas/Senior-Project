@@ -1,0 +1,29 @@
+<%- include('partials/header') -%>
+
+    <%- include('partials/navigation') -%>
+
+        <body>
+            <main>
+                <div class="connect">
+                    <% for (let i=0; i< topics.length; i++){ %>
+                        <h2>
+                            <%=topics[i] %>
+                        </h2>
+                        <ul>
+                            <% for (let x=0; x< data.length; x++){ %>
+                                <% if(data[x].eventType===topics[i]) {%>
+                                    <li>
+                                        <a href="/member/connection/<%= data[x]._id %>">
+                                            <%= data[x].eventName %>
+                                        </a>
+                                    </li>
+                                    <% }%>
+                                        <% } %>
+
+                        </ul>
+                        <% } %>
+                </div>
+
+            </main>
+        </body>
+        <%- include('partials/footer') -%>

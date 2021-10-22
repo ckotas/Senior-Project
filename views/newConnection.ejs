@@ -1,0 +1,33 @@
+<%- include('partials/header') -%>
+
+    <%- include('partials/navigation') -%>
+
+        <body>
+            <form id="new-connect" method="POST" action="/member/loggedin/newConnection">
+
+                <label for="eventName">Event Name:</label>
+                <input type="text" name="eventName" value="<%= data.eventName %>" placeholder="event name">
+
+                <label for="eventType">Event Type:</label>
+                <input type="text" name="eventType" value="<%= data.eventType %>" placeholder="event type">
+
+                <label for="hostedby">Hosted by:</label>
+                <input type="text" name="hostedby" value="<%= data.hostedby %>" placeholder="hosted by">
+
+                <label for="when">When:</label>
+                <input type="text" name="when" value="<%= data.when %>" placeholder="when">
+
+                <label for="where">Where:</label>
+                <input type="text" name="where" value="<%= data.where %>" placeholder="where">
+
+                <label for="contact">Contact info:</label>
+                <input type="text" name="contact" value="<%= data.contact %>" placeholder="contact info">
+
+                <label for="details">Details:</label>
+                <input type="text" name="details" value="<%= data.details %>" placeholder="details">
+
+                <input type="submit" value="Submit">
+            </form>
+        </body>
+
+        <%- include('partials/footer') -%>

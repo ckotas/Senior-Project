@@ -1,0 +1,34 @@
+<%- include('partials/header') -%>
+
+    <%- include('partials/navigation') -%>
+
+        <body>
+            <h2>Welcome to Teds Garden!</h2>
+            <form action="/member/loggedin/login" method="POST">
+                <table>
+                    <tr>
+                        <td>
+                            <label>Username:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="code" size="40" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Passowrd:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="title" size="40" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" value="Login" class="login">Login</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </body>
+
+        <%- include('partials/footer') -%>

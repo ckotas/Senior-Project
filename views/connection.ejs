@@ -1,0 +1,41 @@
+<%- include('partials/header') -%>
+
+    <%- include('partials/navigation') -%>
+
+        <body>
+            <main>
+                <div class="event">
+                    <img src="<%= data.image %>" alt="Host">
+                    <h2>
+                        <%= data.eventName %>
+                    </h2>
+                    <p> <b>Hosted by:</b>
+                        <%= data.hostedby %>
+                    </p>
+                    <p> <b>When:</b>
+                        <%= data.when %>
+                    </p>
+                    <p> <b>Where:</b>
+                        <%= data.where %>
+                    </p>
+                    <p> <b>Contact:</b>
+                        <%= data.contact %>
+                    </p>
+                    <h3> Details: </h3>
+                    <p>
+                        <%= data.details %>
+                    </p>
+                    <h3>Would you like to attend the event?</h3>
+                    <form method="post">
+                        <input hidden name="connectionID" value="<%= data._id %>">
+                        <button type="submit" formaction="/member/loggedin/rsvp" class="yesbut" name="rsvp"
+                            value="Yes">Yes</button>
+                        <button type="submit" formaction="/member/loggedin/rsvp" class="nobut" name="rsvp"
+                            value="No">No</button>
+                        <button type="submit" formaction="/member/loggedin/rsvp" class="maybebut" name="rsvp"
+                            value="Maybe">Maybe</button>
+                    </form>
+                </div>
+            </main>
+        </body>
+        <%- include('partials/footer') -%>

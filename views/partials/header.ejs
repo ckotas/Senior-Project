@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Connection</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/project.css">
+</head>
+<header>
+    <h1>Teds Gardening Club</h1>
+    <ul id="personalNav">
+        <% if (typeof thehost !='undefined' ){ %>
+            <li><a href="/member/loggedin/savedConnections">Saved Connections</a></li>
+            <li><a href="/member/loggedin/logout">Log Out</a></li>
+            <%}else{%>
+
+                <li><a href="/member/loggedin/">Log in</a></li>
+                <li><a href="/member/loggedin/">Sign up</a></li>
+
+                <% }%>
+    </ul>
+</header>
