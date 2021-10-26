@@ -1,0 +1,19 @@
+{
+  "name": "senior-project",
+  "version": "1.0.0",
+  "description": "49er Dorm Buddies senior project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckotas/Senior-Project.git"
+  },
+  "author": "Austin, Adam, Christan, Evette, Truong, Aryani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckotas/Senior-Project/issues"
+  },
+  "homepage": "https://github.com/ckotas/Senior-Project#readme"
+}
