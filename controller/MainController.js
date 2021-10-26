@@ -14,5 +14,8 @@ router.get('/DailyView',function (req, res){
 router.get('/login',function (req, res){
     res.render('Login');
 });
+router.get('/',function (req, res){
+    res.render('Login');
+});
 
 module.exports = router;
