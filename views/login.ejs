@@ -2,10 +2,32 @@
 
     <%- include('partials/navigation') -%>
 
-        <body>
-            <main >
-                <h1>Login Web auth</h1>
-
-            </main>
-        </body>
+    <body>
+        <h2>Please sign in to continue!</h2>
+        <form action="/Login">
+            <table>
+                <tr>
+                    <td>
+                        <label>Email:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="email" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" value="Login" class="login">Login</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
         <%- include('partials/footer') -%>
