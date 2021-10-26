@@ -2,13 +2,14 @@ var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
+var bodyParser = require('body-parser');
 
 //Establishing session and cookies
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 //setting the cookies
 app.use(cookieParser());
 app.use(
