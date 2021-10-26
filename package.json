@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/ckotas/Senior-Project/issues"
   },
-  "homepage": "https://github.com/ckotas/Senior-Project#readme"
+  "homepage": "https://github.com/ckotas/Senior-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14"
+  }
 }
