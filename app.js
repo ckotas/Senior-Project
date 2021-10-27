@@ -1,8 +1,15 @@
 var express = require('express');
 var app = express();
-app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 var bodyParser = require('body-parser');
+const mainRoutes = require('./routes/mainRoutes');
+const studentRoutes = require('./routes/studentsRoutes');
+const raRoutes = require('./routes/raRoutes');
+
+//configure app
+let port = 3000;
+let host = 'localhost';
+app.set('view engine', 'ejs');
 
 //Establishing session and cookies
 const session = require("express-session");
@@ -19,26 +26,36 @@ app.use(
         saveUninitialized: true
     }));
 
-    //Set variables for each controller
-let maincontroller = require('./controller/maincontroller.js');
+
 
 //route the corresponding urls to their controller
-app.use('/about', maincontroller);
-app.use('/Announcement', maincontroller);
-app.use('/ContactUs', maincontroller);
-app.use('/CreateAnnouncement', maincontroller);
-app.use('/CreateEvent', maincontroller);
-app.use('/CreateMessage', maincontroller);
-app.use('/DailyView', maincontroller);
-app.use('/Event_details', maincontroller);
-app.use('/HomePage', maincontroller);
-app.use('/Inbox', maincontroller);
-app.use('/Login', maincontroller);
-app.use('/ViewMessage', maincontroller);
-app.use('/ViewMessage', maincontroller);
-app.use('/Welcomepage', maincontroller);
-app.use('/', maincontroller);
+
+app.use('/', mainRoutes);
+
+app.use('/student', studentRoutes);
+
+app.use('/RA', raRoutes);
 
 
+app.use((req, res, next)=> {
+    let err = new Error('Ther server cannot locate ' + req.url);
+    err.status = 404;
+    next(err);
 
-app.listen(8084);
+});
+
+app.use((err, req, res, next) =>{
+    console.log(err.stack);
+    if(!err.status){
+        err.status = 500;
+        err.message = ("Internal Server Error");
+    }
+
+    res.status(err.status);
+    res.render('error', {error: err});
+});
+
+//start the server
+app.listen(port, host, ()=>{
+    console.log('Server is running on port', port);
+});

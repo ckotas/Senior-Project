@@ -1,21 +1,15 @@
-const express = require('express');
-const router = express.Router();
+exports.welcome = (req, res)=>{
+    res.render('Welcomepage');
+};
 
+exports.about = (req, res)=>{
+    res.render('about');
+};
 
-router.get('/HomePage',function (req, res){
-    res.render('homepage');
-});
-router.get('/Announcement',function (req, res){
-    res.render('Announcements');
-});
-router.get('/DailyView',function (req, res){
-    res.render('DailyView');
-});
-router.get('/login',function (req, res){
-    res.render('Login');
-});
-router.get('/',function (req, res){
-    res.render('Login');
-});
+exports.contact = (req, res)=>{
+    res.render('ContactUs');
+};
 
-module.exports = router;
+exports.login = (req, res)=>{
+    res.render('login');
+};
