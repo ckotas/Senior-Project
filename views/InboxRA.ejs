@@ -3,9 +3,36 @@
     <%- include('partials/navigationRA') -%>
 
         <body>
-            <main >
+            <main>
                 <h1>Inbox</h1>
+                <div class="resolved">
+                    <table>
+                        <th>
+                        <td>From:</td>
+                        <td>Subject:</td>
+                        <td>Status</td>
+                        </th>
+                        <tr>
+                            <td>Room 310</td>
+                            <td>My roomate smells.</td>
+                            <input type="checkbox" name="status" />
+                        </tr>
+                    </table>
 
+                </div>
+                <div class="unResolved">
+                    <table>
+                        <th>
+                        <td>From:</td>
+                        <td>Subject:</td>
+                        <td>Status</td>
+                        </th>
+                        <tr>
+                            <td>Room 310</td>
+                            <td>My roomate keeps sniffing me.</td>
+                            <input type="checkbox" name="status" />
+                        </tr>
+                </div>
             </main>
         </body>
         <%- include('partials/footer') -%>

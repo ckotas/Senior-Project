@@ -3,8 +3,21 @@
     <%- include('partials/navigationStudent') -%>
 
         <body>
-            <main >
+            <main>
                 <h1>View Message</h1>
+                <form id="message">
+                    <label for="messagesender"> From:</label>
+                    <input type="text" id="messagesender" name="messagesender">
+                    <label for="messagesubject"> Subject:</label>
+                    <input type="text" id="messagesubject" name="messagesubject">
+                    <label for="messagedetails"> Details: </label>
+                    <textarea name="messagedetails" form="message">Details</textarea>
+                    <label for="messageRA"> RA: </label>
+                    <input type="text" id="messageRA" name="messageRA">
+                    <input type="checkbox" id="resolved" name="resolved" value="yes">
+                    <label for="resolved"> Resolved </label>
+                    <input type="submit" value="Submit">
+                </form>
 
             </main>
         </body>
