@@ -3,9 +3,43 @@
     <%- include('partials/navigationRA') -%>
 
         <body>
-            <main >
-                <h1>Create Announcement student w</h1>
+            <main>
+                <h1>Create Announcement</h1>
+                <form>
+                    <label for="annTitle"> Title:</label>
+                    <input type="text" id="annTitle" name="annTitle">
 
+                    <label for="annType"> Type:</label>
+                    <input type="text" id="annType" name="annType">
+
+                    <label for="annDate"> Date:</label>
+                    <input type="date" id="annDate" name="annDate">
+
+                    <label for="annTypecolor"> Event type:</label>
+                    <input type="text" id="annTypecolor" name="annTypecolor">
+
+                    <label for="annStartTime"> Start Time:</label>
+                    <input type="time" id="annStartTime" name="annStartTime">
+
+                    <label for="annEndTime"> End Time:</label>
+                    <input type="time" id="annEndTime" name="annEndTime">
+
+                    <label for="annAllDay"> All day</label>
+                    <input type="checkbox" id="annAllDay" name="annAllDay" value="yes">
+
+                    <label for="annRepeat">Repeat:</label>
+                    <select name="annRepeat" id="annRepeat">
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Bi-Weekly">Bi-Weekly</option>
+                        <option value="Month">Month</option>
+                    </select>
+
+                    <label for="annDesc"> Event description:</label>
+                    <textarea name="annDesc" form="annDesc">Event description</textarea>
+
+                    <input type="submit" value="Create Announcement">
+                </form>
             </main>
         </body>
         <%- include('partials/footer') -%>
