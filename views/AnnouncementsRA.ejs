@@ -6,7 +6,7 @@
             <main>
                 <h1>Announcements Page</h1>
                 <div class="announcementList">
-                    <form id="anouncementsRa" method="POST"action="/AnnouncementsRA">
+                    <form id="anouncementsRa" method="POST"action="/RA/AnnouncementsRA">
                         <table>
                             <thead>
                                 <tr>
@@ -19,21 +19,26 @@
                                         End of semester party!
                                     </td>
                                     <td>
-                                        <input type="submit" value="going">
+                                        <button type="submit" formmethod="post" formaction="/RA/going">Going</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="submit" value="delete">
+                                        <button type="submit" formmethod="GET" formaction="/RA/editAnnouncement">Edit</button>
                                     </td>
                                     <td>
-                                        <input type="submit" value="edit">
+                                        <button type="submit" formmethod="POST" formaction="/RA/announcements">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
 
                         </table>
                     </form>
+
+                    <form method="get" action="/RA/CreateAnnouncementsRA">
+                        <button type="submit">Create</button>
+                    </form>
+
                 </div>
 
             </main>

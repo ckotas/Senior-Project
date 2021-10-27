@@ -7,11 +7,18 @@ router.get('/homepage', controller.homepage);
 
 router.get('/message', controller.message);
 
+router.post('/CreateMessage', controller.createMessage);
+
 router.get('/announcements', controller.anouncement);
+
+router.post('/announcements', controller.going);
 
 router.get('/createEvent', controller.createEvent);
 
+router.post('/createEvent', controller.createdEvent);
+
 router.get('/logout', controller.logout);
 
+router.get('/', controller.homepage);
 
 module.exports = router;

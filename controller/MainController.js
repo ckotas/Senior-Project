@@ -13,3 +13,14 @@ exports.contact = (req, res)=>{
 exports.login = (req, res)=>{
     res.render('login');
 };
+
+exports.loggingIn = (req, res)=>{
+    if(req.body.email === 'student'){
+        res.redirect('/student');
+    } else if(req.body.email === 'ra'){
+        res.redirect('/RA');
+    } else {
+        res.redirect('/login');
+    }
+};
+

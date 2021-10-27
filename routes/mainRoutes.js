@@ -11,6 +11,8 @@ router.get('/contact', controller.contact);
 
 router.get('/login', controller.login);
 
+router.post('/login', controller.loggingIn);
+
 
 
 module.exports = router;

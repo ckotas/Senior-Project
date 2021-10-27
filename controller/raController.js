@@ -1,5 +1,5 @@
 exports.homepage = (req, res)=>{
-    res.render('homepageRA');
+    res.render('HomePageRA');
 };
 
 exports.inbox = (req, res)=>{
@@ -10,10 +10,31 @@ exports.anouncementRA = (req, res)=>{
     res.render('AnnouncementsRA');
 };
 
+exports.editAnnouncement = (req, res)=>{
+    res.render('CreateAnnouncementRA');
+};
+
+exports.going = (req, res)=>{
+    res.redirect('homepage');
+};
+
 exports.createEventRa = (req, res)=>{
     res.render('CreateEvent');
 };
 
-exports.logoutRA = (req, res)=>{
-    res.render('Welcomepage');
+exports.createdEventRa = (req, res)=>{
+    res.redirect('homepage');
 };
+
+exports.logoutRA = (req, res)=>{
+    res.redirect('../');
+};
+
+exports.CreateAnnouncementsRA = (req, res)=>{
+    res.render('CreateAnnouncementRA');
+};
+
+exports.CreatedAnnouncementsRA = (req, res)=>{
+    res.redirect('homepage');
+};
+
