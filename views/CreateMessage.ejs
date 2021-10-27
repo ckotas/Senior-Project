@@ -3,8 +3,17 @@
     <%- include('partials/navigationStudent') -%>
 
         <body>
-            <main >
+            <main>
                 <h1>Create Message</h1>
+                <form id="message">
+                    <label for="messagesubject"> Subject:</label>
+                    <input type="text" id="messagesubject" name="messagesubject">
+                    <label for="messagedetails"> Details: </label>
+                    <textarea name="details" form="message">Details</textarea>
+                    <input type="checkbox" id="anonymous" name="anonymous" value="yes">
+                    <label for="anonymous"> Anonymous </label>
+                    <input type="submit" value="Submit">
+                </form>
 
             </main>
         </body>
