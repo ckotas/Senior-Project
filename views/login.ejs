@@ -1,33 +1,39 @@
 <%- include('partials/header') -%>
 
-    <%- include('partials/navigationStudent') -%>
-
+    <body class="login-body-page">
     <body>
-        <h2>Please sign in to continue!</h2>
+      <div class="login-header">
+        </div>
+        <div class="login-heading"><p>49er Sign In</p></div>
         <form action="/Login" id="Login" method="POST" action="/Login" >
-            <table>
-                <tr>
+            <table class="login-info">
+                <tr class="login-row">
                     <td>
-                        <label>Email:</label>
+                        <label class="login-info-font">Email:</label>
                     </td>
                     <td>
-                        <input type="text" name="email" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Password:</label>
-                    </td>
-                    <td>
-                        <input type="password" name="password" />
+                        <input type="text" class="input-login" name="email" />
                     </td>
                 </tr>
-                <tr>
+                <tr class="login-row">
                     <td>
-                        <button type="submit" value="Login" class="login">Login</button>
+                        <label class="login-info-font">Password:</label>
+                    </td>
+                    <td>
+                        <input type="password" class="input-login" name="password" />
                     </td>
                 </tr>
             </table>
+            <div class=logging-container>
+              </div>
+            <div class="logging-in-container">
+              <button type="submit" value="Login" class="logging">Login</button>
+            </div>
         </form>
+
     </body>
-        <%- include('partials/footer') -%>
+
+    <div class="footer-1">
+      </div>
+        <div class="footer-2">
+          </div>
