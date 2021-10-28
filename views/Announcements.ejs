@@ -2,32 +2,34 @@
 
     <%- include('partials/navigationStudent') -%>
 
-        <body>
+        <body class="announcement-body-page">
             <main>
-                <h1>Announcements Page</h1>
-                <div class="announcementList">
-                    <form id="anouncementspage" method="POST"action="./Announcements">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th> Dorm Event</th>
-                                </tr>
-                            </thead>
+                <h1 class="announcement-text">Announcements</h1>
+                <div class="announcement-container">
+                    <form id="anouncementspage" method="POST" action="./Announcements">
+                        <table class="announcement-list">
                             <tbody>
                                 <tr>
                                     <td>
-                                        End of semester party!
+                                        Dorm Event
                                     </td>
-                                    <td>
-                                        <input type="submit" value="going">
+
+                                    <th rowspan="2" class="detail-announcement"> End of the Semester Party! </th>
+                                    <th rowspan="2" class="announcement-going">
+                                        <button type="submit" class="going-button" value="going">Going</button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="announcement-color">
+
                                     </td>
                                 </tr>
+
                             </tbody>
 
                         </table>
                     </form>
                 </div>
-
             </main>
         </body>
         <%- include('partials/footer') -%>
