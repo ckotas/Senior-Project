@@ -3,7 +3,6 @@ var app = express();
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 var bodyParser = require('body-parser');
-const db = require('./database/database');
 
 
 
