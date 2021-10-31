@@ -4,6 +4,7 @@
   "description": "49er Dorm Buddies senior project",
   "main": "app.js",
   "scripts": {
+    "start":"nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/ckotas/Senior-Project#readme",
   "dependencies": {
+    "@leafac/sqlite": "^1.5.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "ejs": "^3.1.6",

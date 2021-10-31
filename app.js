@@ -11,6 +11,8 @@ let port = 3000;
 let host = 'localhost';
 app.set('view engine', 'ejs');
 
+
+
 //Establishing session and cookies
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
