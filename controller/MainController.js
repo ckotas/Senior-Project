@@ -1,24 +1,29 @@
-exports.welcome = (req, res)=>{
+exports.welcome = (req, res) => {
     res.render('Welcomepage');
 };
 
-exports.about = (req, res)=>{
+exports.about = (req, res) => {
     res.render('about');
 };
 
-exports.contact = (req, res)=>{
+exports.contact = (req, res) => {
     res.render('ContactUs');
 };
 
-exports.login = (req, res)=>{
+exports.login = (req, res) => {
     res.render('login');
 };
 
-exports.loggingIn = (req, res)=>{
-    if(req.body.email === 'student'){
-        res.redirect('/student');
-    } else if(req.body.email === 'ra'){
-        res.redirect('/RA');
+exports.loggingIn = (req, res) => {
+    const db = require('../database/database');
+    const user = db.getUser(req.body.email, req.body.password);
+    if (user) {
+        req.session.user = user;
+        if (user.role === 'Student') {
+            res.redirect('/student');
+        } else if (user.role === 'RA') {
+            res.redirect('/RA');
+        }
     } else {
         res.redirect('/login');
     }

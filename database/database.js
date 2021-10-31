@@ -4,7 +4,7 @@ const { Database, sql } = require("@leafac/sqlite");
 const db = new Database("Drom-Buddy.db");
 
 //Creates database only run if there is not a "Dorm-Buddy.db" file
-const createDatabase = () => {
+exports.createDatabase = () => {
     db.execute(sql`
     CREATE TABLE "Users"(
         "userId" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,15 +70,13 @@ const createDatabase = () => {
 
 
 //Function mostly for testing and debugging purposes to easily insert more test data into user database
-const createUser = (fname, lname, role, email, password) => {
+exports.createUser = (fname, lname, role, email, password) => {
     db.run(
         sql`INSERT INTO "Users" ("fName", "lName", "role", "email", "password") VALUES (${fname}, ${lname}, ${role},${email},${password})`
     );
 };
 
-const getUser = (email, password) => {
-    const user =  db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
-    console.log(user);
+exports.getUser = (email, password) => {
+    return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
 }
 
-module.exports = { createDatabase, createUser, getUser };

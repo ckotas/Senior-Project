@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 const mainRoutes = require('./routes/mainRoutes');
 const studentRoutes = require('./routes/studentsRoutes');
 const raRoutes = require('./routes/raRoutes');
+const db = require('./database/database');
+
+// db.createDatabase();
+
+//  db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password");
 
 //configure app
 let port = 3000;
