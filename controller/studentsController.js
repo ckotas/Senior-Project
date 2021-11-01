@@ -27,5 +27,6 @@ exports.createdEvent = (req, res)=>{
 };
 
 exports.logout = (req, res)=>{
+    req.session.user=undefined;
     res.redirect('../');
 };
