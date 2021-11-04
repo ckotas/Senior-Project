@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/', controller.welcome);
 
+router.get('', controller.welcome);
+
 router.get('/about', controller.about);
 
 router.get('/contact', controller.contact);
