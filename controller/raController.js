@@ -3,7 +3,7 @@ exports.homepage = (req, res)=>{
 };
 
 exports.inbox = (req, res)=>{
-    res.render('inboxRA');
+    res.render('InboxRA');
 };
 
 exports.anouncementRA = (req, res)=>{
