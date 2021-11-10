@@ -1,5 +1,5 @@
 exports.homepage = (req, res)=>{
-    res.render('HomePageRA');
+    res.render('HomePage');
 };
 
 exports.inbox = (req, res)=>{
