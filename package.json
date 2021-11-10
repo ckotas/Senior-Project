@@ -4,7 +4,7 @@
   "description": "49er Dorm Buddies senior project",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "fullcalendar": "^5.10.1",
     "nodemon": "^2.0.14"
   }
 }

@@ -3,15 +3,102 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
 <head>
-    <title>49er Dorm Buddies</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/project.css">
+  <title>49er Dorm Buddies</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/assets/stylesheets/project.css">
+  <link href='../../assets/fullcalendar/main.css' rel='stylesheet' />
+  <script src='../../assets/fullcalendar/main.js'></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridDay, dayGridMonth'
+        },
+
+        events: [
+          { // this object will be "parsed" into an Event Object
+            title: 'The Title', // a property!
+            start: '2021-11-01T18:30:00', // a property!
+            end: '2021-11-01T19:30:00',// a property! ** see important note below about 'end' **
+            url: './createEvent',
+            backgroundColor: 'red',
+            textColor: 'black',
+            allDay: 'false',
+            daysOfWeek: ['1'],
+            startRecur: '2021-11-01',
+            endRecur: '2021-11-23',
+            description: 'this is a test',
+            type: 'Dorm Event'
+            //startTime: '2021-11-01T18:30:00',
+            //endTime: '2021-11-01T19:30:00',
+
+          }
+        ]
+
+      });
+      calendar.render();
+    });
+
+  </script>
 </head>
 <header>
   <div class="banner">
     <!-- Update the banner to match the logged in user -->
     <a href="/"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies" id=hImage> </a>
-</div>
+  </div>
+
+  <% if (user.role === 'null') {
+
+  }
+   else if(user.role === 'Student' ) {%>
+    <nav class="NavBar">
+      <div class="navigation-bar">
+        <div class="logo-container">
+          <a class="nav-logo" href="/student/homepage"> <img src="../../assets/images/banner.png"
+              alt="49er Dorm Buddies" id=hImage>
+          </a>
+        </div>
+        <div class="main-nav">
+          <a class="nav-option" href="/student/homepage">Home</a>
+          <a class="nav-option" href="/student/message">Message</a>
+          <a class="nav-option" href="/student/announcements">Announcements</a>
+          <a class="nav-option" href="/student/createEvent">Create Event</a>
+        </div>
+        <div class="nav-logout">
+          <a class="nav-option-logout" href="/student/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+    <%} else if (user.role === 'RA' ) {%>
+
+      <nav class="NavBar">
+        <div class="navigation-bar">
+          <div class="logo-container">
+            <a class="nav-logo" href="/RA/homepage"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies"
+                id=hImage>
+            </a>
+          </div>
+          <div class="main-nav">
+            <a class="nav-option" href="/RA/homepage">Home</a>
+            <a class="nav-option" href="/RA/inbox">Inbox</a>
+            <a class="nav-option" href="/RA/announcements">Announcements</a>
+            <a class="nav-option" href="/RA/createEvent">Create Event</a>
+          </div>
+          <div class="nav-logout">
+            <a class="nav-option-logout" href="/student/logout">Logout</a>
+          </div>
+        </div>
+      </nav>
+      <%}%>
 
 </header>
