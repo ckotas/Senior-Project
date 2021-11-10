@@ -7,7 +7,7 @@ exports.inbox = (req, res)=>{
 };
 
 exports.anouncementRA = (req, res)=>{
-    res.render('AnnouncementsRA');
+    res.render('Announcements');
 };
 
 exports.editAnnouncement = (req, res)=>{
