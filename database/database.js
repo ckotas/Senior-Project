@@ -56,7 +56,9 @@ exports.createDatabase = () => {
         "endRecur" TEXT,
         "description" TEXT NOT NULL,
         "type" TEXT NOT NULL,
+        "roomId" INTEGER NOT NULL,
         "creator" INTEGER NOT NULL,
+        FOREIGN KEY("roomId") REFERENCES Room("roomId"),
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
@@ -86,17 +88,21 @@ exports.getUser = (email, password) => {
     return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
 }
 
-exports.addEvent = (start, end, url, backgroundColor, textColor, allDay, daysOfWeek, description, type, startRecur, endRecur, id) => {
+exports.addEvent = (start, end, url, backgroundColor, textColor, allDay, daysOfWeek, description, type, startRecur, endRecur, id, roomId) => {
     if (startRecur && endRecur) {
         db.run(
-            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","startRecur","endRecur","description","type","creator") VALUES
-            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id})`
+            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","startRecur","endRecur","description","type","creator", "roomId") VALUES
+            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id}, ${roomId})`
         );
     } else {
         db.run(
-            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","description","type","creator") VALUES
-            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${description},${type}, ${id})`
+            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","description","type","creator", "roomId") VALUES
+            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${description},${type}, ${id}, ${roomId})`
         );
     }
+}
+
+exports.getEvents = (roomId) => {
+    return db.get(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
 
