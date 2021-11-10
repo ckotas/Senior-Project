@@ -45,13 +45,19 @@ exports.createDatabase = () => {
     );
     CREATE TABLE "Event"(
         "eventId" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "attendees" VARCHAR NOT NULL,
-        "organizer" INTEGER NOT NULL,
-        "date" DATE NOT NULL,
-        "time" TIME NOT NULL,
-        "location" TEXT NOT NULL,
-        "details" TEXT NOT NULL,
-        FOREIGN KEY("organizer") REFERENCES Users("userId")
+        "start" TEXT NOT NULL,
+        "end" TEXT NOT NULL,
+        "url" TEXT NOT NULL,
+        "backgroundColor" TEXT NOT NULL,
+        "textColor" TEXT NOT NULL,
+        "allDay" TEXT NOT NULL,
+        "daysOfWeek" VARCHAR,
+        "startRecur" TEXT,
+        "endRecur" TEXT,
+        "description" TEXT NOT NULL,
+        "type" TEXT NOT NULL,
+        "creator" INTEGER NOT NULL,
+        FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
         "messageId" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -78,5 +84,19 @@ exports.createUser = (fname, lname, role, email, password) => {
 
 exports.getUser = (email, password) => {
     return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
+}
+
+exports.addEvent = (start, end, url, backgroundColor, textColor, allDay, daysOfWeek, description, type, startRecur, endRecur, id) => {
+    if (startRecur && endRecur) {
+        db.run(
+            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","startRecur","endRecur","description","type","creator") VALUES
+            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id})`
+        );
+    } else {
+        db.run(
+            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","description","type","creator") VALUES
+            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${description},${type}, ${id})`
+        );
+    }
 }
 
