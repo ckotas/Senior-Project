@@ -28,12 +28,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(
     session({
+        
         secret: "testing",
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: {maxAge: 60*60*1000}
     }));
 
-
+    app.use((req, res, next) => {
+        
+        res.locals.user = req.session.user||'null';
+        console.log(res.locals.user)
+        next();
+    });
 
 //route the corresponding urls to their controller
 
