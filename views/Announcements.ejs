@@ -1,35 +1,80 @@
 <%- include('partials/header') -%>
 
-    
 
-        <body class="announcement-body-page">
-            <main>
-                <h1 class="announcement-text">Announcements</h1>
-                <div class="announcement-container">
-                    <form id="anouncementspage" method="POST" action="./Announcements">
-                        <table class="announcement-list">
+
+    <body class="announcement-body-page">
+        <main>
+
+        </main>
+        <% if (user.role==='null' ) { } else if(user.role==='Student' ) {%>
+
+            <h1 class="announcement-text">Announcements</h1>
+            <div class="announcement-container">
+                <form id="anouncementspage" method="POST" action="./Announcements">
+                    <table class="announcement-list">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Dorm Event
+                                </td>
+
+                                <th rowspan="2" class="detail-announcement"> End of the Semester Party! </th>
+                                <th rowspan="2" class="announcement-going">
+                                    <button type="submit" class="going-button" value="going">Going</button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td class="announcement-color">
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+
+            <%} else if (user.role==='RA' ) {%>
+                <h1>Announcements Page</h1>
+                <div class="announcementList">
+                    <form id="anouncementsRa" method="POST" action="/RA/AnnouncementsRA">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Dorm Event</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        Dorm Event
+                                        End of semester party!
                                     </td>
-
-                                    <th rowspan="2" class="detail-announcement"> End of the Semester Party! </th>
-                                    <th rowspan="2" class="announcement-going">
-                                        <button type="submit" class="going-button" value="going">Going</button>
-                                    </th>
+                                    <td>
+                                        <button type="submit" formmethod="post" formaction="/RA/going">Going</button>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="announcement-color">
-
+                                    <td>
+                                        <button type="submit" formmethod="GET"
+                                            formaction="/RA/editAnnouncement">Edit</button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" formmethod="POST"
+                                            formaction="/RA/announcements">Delete</button>
                                     </td>
                                 </tr>
-
                             </tbody>
 
                         </table>
                     </form>
+
+                    <form method="get" action="/RA/CreateAnnouncementsRA">
+                        <button type="submit">Create</button>
+                    </form>
+
                 </div>
-            </main>
-        </body>
-        <%- include('partials/footer') -%>
+
+                <%}%>
+    </body>
+    <%- include('partials/footer') -%>
