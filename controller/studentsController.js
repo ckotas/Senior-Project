@@ -1,3 +1,5 @@
+const db = require('../database/database');
+
 exports.homepage = (req, res)=>{
     res.render('HomePage');
 };
@@ -19,6 +21,7 @@ exports.going = (req, res)=>{
 };
 
 exports.createEvent = (req, res)=>{
+    
     res.render('CreateEvent');
 };
 

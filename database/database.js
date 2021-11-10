@@ -32,8 +32,8 @@ exports.createDatabase = () => {
     );
     CREATE TABLE "Room"(
         "roomId" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "userId" VARCHAR,
-        "plannerId" VARCHAR
+        "userId" TEXT,
+        "plannerId" TEXT
     );
     CREATE TABLE "Planner"(
         "plannerId" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,7 +51,7 @@ exports.createDatabase = () => {
         "backgroundColor" TEXT NOT NULL,
         "textColor" TEXT NOT NULL,
         "allDay" TEXT NOT NULL,
-        "daysOfWeek" VARCHAR,
+        "daysOfWeek" TEXT,
         "startRecur" TEXT,
         "endRecur" TEXT,
         "description" TEXT NOT NULL,
