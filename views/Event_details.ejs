@@ -1,26 +1,37 @@
 <%- include('partials/header') -%>
 
-    
+
 
         <body>
             <main >
                 <h1>Event Details</h1>
-                <h2>Title</h2>
-            
-            
+                <h2><%= event.title%></h2>
+            <% if(user.userId == event.creator){%>
+            <form>
+            <button type="submit" formmethod="GET" formaction="">Edit</button>
+            <button type="submit" formmethod="POST" formaction="">Delete</button>
+            </form>
+            <%}%>
+            <% 
+            let dateTime = event.start.split('T');
+            let start = moment(dateTime[1], 'HH:mm:ss').format('hh:mm A');
+            let end = event.end.split('T');
+            end = moment(end[1], 'HH:mm:ss').format('hh:mm A');
+
+            %>
             <ul class="eventShow">
-                <li><p>Category: Chore</p></li>
-                <li><p>When: Tuesday, August 23</p></li>
-                <li><p>2:00-3:00 pm</p></li>
-                <li><p>Repeat Weekly</p></li>
-                <li><p>Description: We are going shopping</p></li>
+                <li><p>Category: <%= event.type%></p></li>
+                <li><p>Date: <%= dateTime[0]%></p></li>
+                <li><p><%= start%>-<%= end%></p></li>
+                <li><p>Repeat: <%= event.repeat%></p></li>
+                <li><p>Description: <%= event.description%></p></li>
             </ul>
             
-
-            <form>
-                <button type="submit" formmethod="GET" formaction="">Edit</button>
-                <button type="submit" formmethod="POST" formaction="">Delete</button>
-            </form>
+                
+                
+            
+            
+            
 
             </main>
         </body>

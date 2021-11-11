@@ -7,9 +7,9 @@ const studentRoutes = require('./routes/studentsRoutes');
 const raRoutes = require('./routes/raRoutes');
 const db = require('./database/database');
 
- //db.createDatabase();
- //db.createUser("FirstN", "LastN", "Student", "test1@test.com", "password", "1");
- //db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password", "1");
+//db.createDatabase();
+//db.createUser("FirstN", "LastN", "Student", "test1@test.com", "password", "1");
+//db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password", "1");
 
 //configure app
 let port = 3000;

@@ -54,6 +54,8 @@ exports.createDatabase = () => {
         "daysOfWeek" TEXT,
         "startRecur" TEXT,
         "endRecur" TEXT,
+        "repeat" TEXT,
+        "title" TEXT NOT NULL,
         "description" TEXT NOT NULL,
         "type" TEXT NOT NULL,
         "roomId" INTEGER NOT NULL,
@@ -91,17 +93,17 @@ exports.getUser = (email, password) => {
     return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
 }
 
-exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, description, type, id, roomId, startRecur, endRecur) => {
+exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, description, type, id, roomId, startRecur, endRecur, repeat) => {
     var uniqueId = uid(15);
     if (startRecur && endRecur) {
         db.run(
-            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
         );
     } else {
         db.run(
-            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","repeat","title","description","type","creator", "roomId") VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${repeat},${title},${description},${type}, ${id}, ${roomId})`
         );
     }
 }

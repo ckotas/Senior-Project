@@ -1,4 +1,5 @@
 const db = require('../database/database');
+var moment = require('moment');
 exports.welcome = (req, res) => {
     res.render('Welcomepage');
 };
@@ -14,11 +15,23 @@ exports.contact = (req, res) => {
 exports.login = (req, res) => {
     res.render('login');
 };
-exports.eventDetails = (req, res) => {
+exports.eventDetails = (req, res, next) => {
     //req.param.id
-    console.log(db.getEvent(req.params.id));
+    let id = req.params.id
+    let event = db.getEvent(id)
+    console.log(event)
     
-    res.render('Event_details');
+    
+        if (event){
+            res.render('Event_details', {event, moment})
+        } else {
+            let err = new Error('Cannot find a event with id ' + id);
+            err.status = 404;
+            next(err);
+        }
+    
+    
+    
 };
 
 exports.loggingIn = (req, res) => {
