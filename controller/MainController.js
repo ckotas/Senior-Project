@@ -1,3 +1,4 @@
+const db = require('../database/database');
 exports.welcome = (req, res) => {
     res.render('Welcomepage');
 };
@@ -13,10 +14,17 @@ exports.contact = (req, res) => {
 exports.login = (req, res) => {
     res.render('login');
 };
+exports.eventDetails = (req, res) => {
+    //req.param.id
+    console.log(db.getEvent(req.params.id));
+    
+    res.render('Event_details');
+};
 
 exports.loggingIn = (req, res) => {
     const db = require('../database/database');
     const user = db.getUser(req.body.email, req.body.password);
+
     if (user) {
         req.session.user = user;
         if (user.role === 'Student') {

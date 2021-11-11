@@ -11,6 +11,8 @@ router.get('/contact', controller.contact);
 
 router.get('/login', controller.login);
 
+router.get('/eventDetails/:id', controller.eventDetails);
+
 router.post('/login', controller.loggingIn);
 
 

@@ -8,19 +8,22 @@
                 <Form id="createEvent" action = './createEvent' method = 'POST'>
                     <ul>
                         <li> <label for="eTitle" class="eventForm">Event Title:</label> <input type="text" id="eTitle" name="eTitle" placeholder="Event Title" required></li>
-                        <li> <label for="eType" class="eventForm">Title:</label> <input type="text" id="eType" name="eType" placeholder="Type" required></li>
+                        <li> <label for="eType" class="eventForm">Type:</label> <input type="text" id="eType" name="eType" placeholder="Type" required></li>
                         <li> <label for="ecolor" class="eventForm">Color:</label> <input type="color" id="eColor" name="eColor" ></li>
+                        <li> <label for="eTextcolor" class="eventForm">Text Color:</label> <select id="eTextcolor" name="eTextcolor">
+                            <option value="Black">Black</option>
+                            <option value="White">White</option>
+                        </li>
                         <li> <label for="edate" class="eventForm">Date:</label> <input type="date" id="edate" name="edate" ></li>
                         <li> <label for="eSTime" class="eventForm">Start Time:</label> <input type="time" id="eSTime" name="eSTime" ></li>
                         <li> <label for="eETime" class="eventForm">End Time:</label> <input type="time" id="eETime" name="eETime" ></li>
-                        <li> <label for="eAllDay" class="eventForm">All Day:</label> <input type="checkbox" id="eAllDay" name="eAllDay" ></li>
                         <li> <label for="eRepeat" class="eventForm">Repeat Event:</label> <select id="eRepeat" name="eRepeat">
                             <option value="None">None</option>
                             <option value="Daily">Daily</option>
                             <option value="Weekly">Weekly</option>
-                            <option value="Bi-Weekly">Bi-Weekly</option>
                             <option value="Monthly">Monthly</option>
                         </li>
+                        <li> <label for="eRecurDateend" class="eventForm">End Date:</label> <input type="date" id="eRecurDateend" name="eRecurDateend" ></li>
                         <li> <label for="eDescription" class="eventForm">Event Description:</label> <input type="text" id="eDescription" name="eDescription" placeholder="Description"></li>
                         <li >  <button type="submit"  id="formButton" >Create Event</button></li>
                         

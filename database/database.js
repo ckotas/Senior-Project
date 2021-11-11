@@ -1,4 +1,5 @@
 const { Database, sql } = require("@leafac/sqlite");
+const { uid } = require("uid");
 
 
 const db = new Database("Drom-Buddy.db");
@@ -7,7 +8,7 @@ const db = new Database("Drom-Buddy.db");
 exports.createDatabase = () => {
     db.execute(sql`
     CREATE TABLE "Users"(
-        "userId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "userId" TEXT PRIMARY KEY,
         "fName" TEXT NOT NULL,
         "lName" TEXT NOT NULL,
         "role" TEXT NOT NULL,
@@ -17,7 +18,7 @@ exports.createDatabase = () => {
         FOREIGN KEY("roomId") REFERENCES Room("roomId")
     );
     CREATE TABLE "Announcement"(
-        "announcementId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "announcementId" TEXT PRIMARY KEY,
         "organizer" INTEGER NOT NULL,
         "title" TEXT NOT NULL,
         "type" TEXT NOT NULL,
@@ -44,13 +45,12 @@ exports.createDatabase = () => {
         FOREIGN KEY("roomId") REFERENCES Room("roomId")
     );
     CREATE TABLE "Event"(
-        "eventId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "eventId" TEXT PRIMARY KEY,
         "start" TEXT NOT NULL,
         "end" TEXT NOT NULL,
         "url" TEXT NOT NULL,
         "backgroundColor" TEXT NOT NULL,
         "textColor" TEXT NOT NULL,
-        "allDay" TEXT NOT NULL,
         "daysOfWeek" TEXT,
         "startRecur" TEXT,
         "endRecur" TEXT,
@@ -74,13 +74,16 @@ exports.createDatabase = () => {
         FOREIGN KEY("sender") REFERENCES Users("userId")
     );
 `);
+    db.run(sql`INSERT INTO "Room" DEFAULT VALUES`);
 }
 
 
+
 //Function mostly for testing and debugging purposes to easily insert more test data into user database
-exports.createUser = (fname, lname, role, email, password) => {
+exports.createUser = (fname, lname, role, email, password, roomId) => {
+    let id = uid(16);
     db.run(
-        sql`INSERT INTO "Users" ("fName", "lName", "role", "email", "password") VALUES (${fname}, ${lname}, ${role},${email},${password})`
+        sql`INSERT INTO "Users" ("userId", "fName", "lName", "role", "email", "password", "roomId") VALUES (${id},${fname}, ${lname}, ${role},${email},${password}, ${roomId})`
     );
 };
 
@@ -88,18 +91,22 @@ exports.getUser = (email, password) => {
     return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
 }
 
-exports.addEvent = (start, end, url, backgroundColor, textColor, allDay, daysOfWeek, description, type, startRecur, endRecur, id, roomId) => {
+exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, description, type, id, roomId, startRecur, endRecur) => {
+    var uniqueId = uid(15);
     if (startRecur && endRecur) {
         db.run(
-            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","startRecur","endRecur","description","type","creator", "roomId") VALUES
-            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","description","type","creator", "roomId") VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${description},${type}, ${id}, ${roomId})`
         );
     } else {
         db.run(
-            sql`INSERT INTO "Event" ("start","end" ,"url","backgroundColor","textColor","allDay","daysOfWeek","description","type","creator", "roomId") VALUES
-            (${start},${end},${url},${backgroundColor},${textColor},${allDay},${daysOfWeek},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","description","type","creator", "roomId") VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${description},${type}, ${id}, ${roomId})`
         );
     }
+}
+exports.getEvent = (eventId) => {
+    return db.get(sql`SELECT * FROM "Event" WHERE "eventId" = ${eventId}`);
 }
 
 exports.getEvents = (roomId) => {

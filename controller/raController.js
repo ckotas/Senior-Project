@@ -11,6 +11,7 @@ exports.anouncementRA = (req, res)=>{
 };
 
 exports.editAnnouncement = (req, res)=>{
+    
     res.render('CreateAnnouncementRA');
 };
 
@@ -36,6 +37,7 @@ exports.CreateAnnouncementsRA = (req, res)=>{
 };
 
 exports.CreatedAnnouncementsRA = (req, res)=>{
+    //set color
     res.redirect('homepage');
 };
 
