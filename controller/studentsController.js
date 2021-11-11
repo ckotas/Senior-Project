@@ -6,6 +6,9 @@ exports.homepage = (req, res) => {
     let roomId = req.session.user.roomId
     
     let event = db.getEvents(roomId)
+    if(event == undefined){
+
+    } else {
     if (event.repeat === 'None'){
         delete event.daysOfWeek
     } else if (event.repeat === 'Daily'){
@@ -17,6 +20,7 @@ exports.homepage = (req, res) => {
     }
     console.log(event)
     
+}
       
       
     res.render('HomePage', {event});
