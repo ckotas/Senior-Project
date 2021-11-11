@@ -1,6 +1,29 @@
 <%- include('partials/header') -%>
 
     
+<script>
+    var temp = '<%- JSON.stringify(event) %>';
+    temp = JSON.parse(temp)
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridDay, dayGridMonth'
+        },
+        events: [temp]
+        
+
+      });
+      calendar.render();
+    });
+    
+    console.log(temp)
+  </script>
 
         <body class="homepage-student-body">
             <main>

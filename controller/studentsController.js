@@ -3,7 +3,23 @@ var {uid} = require('uid');
     
 
 exports.homepage = (req, res) => {
-    res.render('HomePage');
+    let roomId = req.session.user.roomId
+    
+    let event = db.getEvents(roomId)
+    if (event.repeat === 'None'){
+        delete event.daysOfWeek
+    } else if (event.repeat === 'Daily'){
+        event.daysOfWeek = ['0','1','2','3','4','5','6']
+        
+    }else if (event.repeat === 'Weekly'){
+        let temp = event.daysOfWeek;
+        event.daysOfWeek = [temp];
+    }
+    console.log(event)
+    
+      
+      
+    res.render('HomePage', {event});
 };
 
 exports.message = (req, res) => {
