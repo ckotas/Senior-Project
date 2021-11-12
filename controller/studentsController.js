@@ -61,10 +61,10 @@ exports.createdEvent = (req, res) => {
     var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
     
     //get day of week
-    const dayofweek = new Date(startDateTime);
+    const dayofweek = new Date(req.body.edate);
     const day = dayofweek.getDay();
 
-    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day, req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
     res.redirect('/student');
 };
 
