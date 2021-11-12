@@ -112,6 +112,6 @@ exports.getEvent = (eventId) => {
 }
 
 exports.getEvents = (roomId) => {
-    return db.get(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
+    return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
 

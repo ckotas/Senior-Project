@@ -9,17 +9,20 @@ exports.homepage = (req, res) => {
     if(event == undefined){
 
     } else {
-    if (event.repeat === 'None'){
-        delete event.daysOfWeek
-    } else if (event.repeat === 'Daily'){
-        event.daysOfWeek = ['0','1','2','3','4','5','6']
+        for (let i = 0; i < event.length; i++){
+    if (event[i].repeat === 'None'){
+        delete event[i].daysOfWeek
+        delete event[i].startRecur
+        delete event[i].endRecur
+    } else if (event[i].repeat === 'Daily'){
+        event[i].daysOfWeek = ['0','1','2','3','4','5','6']
         
     }else if (event.repeat === 'Weekly'){
-        let temp = event.daysOfWeek;
-        event.daysOfWeek = [temp];
+        let temp = event[i].daysOfWeek;
+        event[i].daysOfWeek = [temp];
     }
     console.log(event)
-    
+}
 }
       
       
