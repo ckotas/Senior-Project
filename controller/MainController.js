@@ -73,12 +73,30 @@ exports.edit = (req, res, next)=>{
         err.status = 404;
         next(err);
     }
+   
        
 };
 
 exports.update = (req, res, next)=>{
+    let id = req.params.id;
+    let event = db.getEvent(id);
+    console.log("`````````````````````````````````````````");
+    console.log(event);
 
-    
+    /*var sRecur;
+    var eRecur;
+
+    if(event.startRecur == null || event.endRecur == null){
+        sRecur = 'null';
+        eRecur = 'null';
+    }else{
+        sRecur = event.startRecur;
+        eRecur = event.endRecur;
+    }
+    console.log(sRecur);*/
+
+    //db.updateEvent(event.start, event.end, event.url, event.backgroundColor, event.textColor, event.daysOfWeek, 
+        //sRecur, eRecur, event.repeat, event.title, event.description, event.type, event.eventId);
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {

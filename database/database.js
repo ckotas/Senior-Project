@@ -113,4 +113,13 @@ exports.deleteEvent = (eventId) => {
 exports.getEvents = (roomId) => {
     return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
-
+exports.updateEvent = (start, end, url, backgroundColor, textColor, daysOfWeek, startRecur, endRecur, repeat, title, description, type, eventId) => {
+    return db.run(sql`UPDATE "Event" SET "start"= ?, "end"=?, "url"=?, "backgroundColor"= ?, "textColor"=?, "daysOfWeek"=?, "startRecur"=?, "endRecur"=?,"repeat"= ?, "title"=?, "description"=?, "type"= ? WHERE "eventId" = ?`,[start, end, url, backgroundColor, textColor, daysOfWeek, startRecur, endRecur, repeat, title, description, type, eventId]);
+}
+exports.addEvent = (sender, date, time, read, anonymous, message) => {
+        db.run(
+            sql`INSERT INTO "Message" () VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+        );
+   
+}
