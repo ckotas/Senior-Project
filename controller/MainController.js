@@ -19,7 +19,7 @@ exports.eventDetails = (req, res, next) => {
     //req.param.id
     let id = req.params.id
     let event = db.getEvent(id)
-    console.log(event)
+    //console.log(event)
     
     
         if (event){
@@ -77,27 +77,23 @@ exports.edit = (req, res, next)=>{
        
 };
 
-exports.update = (req, res, next)=>{
+exports.update = async (req, res, next)=>{
     let id = req.params.id;
-    let event = db.getEvent(id);
+    //Get proper time format
+    var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
+    var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
+    
+    //get day of week
+    const dayofweek = new Date(startDateTime);
+    const day = dayofweek.getDay();
+    
     console.log("`````````````````````````````````````````");
+    console.log(req.body);
+
+
+    await db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.type, id);
+    var event = db.getEvent(id);
     console.log(event);
-
-    /*var sRecur;
-    var eRecur;
-
-    if(event.startRecur == null || event.endRecur == null){
-        sRecur = 'null';
-        eRecur = 'null';
-    }else{
-        sRecur = event.startRecur;
-        eRecur = event.endRecur;
-    }
-    console.log(sRecur);*/
-
-    db.updateEvent(event.start, event.end, event.backgroundColor, event.textColor, event.daysOfWeek, event.startRecur, event.endRecur, event.repeat, event.title, event.description, event.type, event.eventId);
-    let eventa = db.getEvent(id);
-    console.log(eventa);
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {

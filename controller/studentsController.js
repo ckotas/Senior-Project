@@ -21,7 +21,7 @@ exports.homepage = (req, res) => {
         let temp = event[i].daysOfWeek;
         event[i].daysOfWeek = [temp];
     }
-    console.log(event)
+    //console.log(event)
 }
 }
       
@@ -55,7 +55,7 @@ exports.createEvent = (req, res) => {
 };
 
 exports.createdEvent = (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     //Get proper time format
     var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
     var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
