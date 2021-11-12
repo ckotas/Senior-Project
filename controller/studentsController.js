@@ -57,8 +57,8 @@ exports.createEvent = (req, res) => {
 exports.createdEvent = (req, res) => {
     //console.log(req.body);
     //Get proper time format
-    var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
-    var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
+    var startDateTime = req.body.edate + "T" + req.body.eSTime;
+    var endDateTime = req.body.edate + "T" + req.body.eETime;
     
     //get day of week
     const dayofweek = new Date(req.body.edate);

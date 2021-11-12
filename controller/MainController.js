@@ -80,8 +80,8 @@ exports.edit = (req, res, next)=>{
 exports.update = (req, res, next)=>{
     let id = req.params.id;
     //Get proper time format
-    var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
-    var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
+    var startDateTime = req.body.edate + "T" + req.body.eSTime;
+    var endDateTime = req.body.edate + "T" + req.body.eETime;
     
     //get day of week
     const dayofweek = new Date(req.body.edate);
