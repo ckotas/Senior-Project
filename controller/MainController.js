@@ -50,3 +50,14 @@ exports.loggingIn = (req, res) => {
     }
 };
 
+exports.delete = (req, res, next)=>{
+    let id = req.params.id;
+
+
+    db.deleteEvent(id)
+    if (req.session.user.role === 'Student') {
+        res.redirect('/student');
+    } else if (req.session.user.role === 'RA') {
+        res.redirect('/RA');
+    }
+};

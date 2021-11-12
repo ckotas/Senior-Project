@@ -61,7 +61,7 @@ exports.createdEvent = (req, res) => {
     const day = dayofweek.getDay();
 
     db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
-    res.redirect('HomePage');
+    res.redirect('/student');
 };
 
 exports.logout = (req, res) => {

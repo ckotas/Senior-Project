@@ -14,8 +14,8 @@ exports.createDatabase = () => {
         "role" TEXT NOT NULL,
         "email" TEXT NOT NULL,
         "password" TEXT NOT NULL,
-        "roomId" INTEGER,
-        FOREIGN KEY("roomId") REFERENCES Room("roomId")
+        "roomId" INTEGER
+        
     );
     CREATE TABLE "Announcement"(
         "announcementId" TEXT PRIMARY KEY,
@@ -31,18 +31,14 @@ exports.createDatabase = () => {
         "description" TEXT NOT NULL,
         FOREIGN KEY("organizer") REFERENCES Users("userId")
     );
-    CREATE TABLE "Room"(
-        "roomId" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "userId" TEXT,
-        "plannerId" TEXT
-    );
+    
     CREATE TABLE "Planner"(
         "plannerId" INTEGER PRIMARY KEY AUTOINCREMENT,
         "roomId" INTEGER NOT NULL,
         "date" DATE NOT NULL,
         "time" TIME NOT NULL,
-        "message" TEXT,
-        FOREIGN KEY("roomId") REFERENCES Room("roomId")
+        "message" TEXT
+        
     );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
@@ -60,7 +56,7 @@ exports.createDatabase = () => {
         "type" TEXT NOT NULL,
         "roomId" INTEGER NOT NULL,
         "creator" INTEGER NOT NULL,
-        FOREIGN KEY("roomId") REFERENCES Room("roomId"),
+        
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
@@ -76,7 +72,7 @@ exports.createDatabase = () => {
         FOREIGN KEY("sender") REFERENCES Users("userId")
     );
 `);
-    db.run(sql`INSERT INTO "Room" DEFAULT VALUES`);
+    
 }
 
 
@@ -109,6 +105,9 @@ exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, d
 }
 exports.getEvent = (eventId) => {
     return db.get(sql`SELECT * FROM "Event" WHERE "eventId" = ${eventId}`);
+}
+exports.deleteEvent = (eventId) => {
+    return db.run(sql`DELETE FROM "Event" WHERE "eventId" = ${eventId}`);
 }
 
 exports.getEvents = (roomId) => {

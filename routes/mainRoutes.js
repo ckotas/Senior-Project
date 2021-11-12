@@ -15,6 +15,7 @@ router.get('/eventDetails/:id', controller.eventDetails);
 
 router.post('/login', controller.loggingIn);
 
+router.delete('/:id',  controller.delete);
 
 
 module.exports = router;

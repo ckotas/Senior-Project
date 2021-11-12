@@ -6,10 +6,13 @@ const mainRoutes = require('./routes/mainRoutes');
 const studentRoutes = require('./routes/studentsRoutes');
 const raRoutes = require('./routes/raRoutes');
 const db = require('./database/database');
+const methodOverride = require('method-override');
 
 //db.createDatabase();
 //db.createUser("FirstN", "LastN", "Student", "test1@test.com", "password", "1");
 //db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password", "1");
+//db.createUser("FirstN", "LastN", "RA", "test3@test.com", "password", "2");
+
 
 //configure app
 let port = 3000;
@@ -41,7 +44,7 @@ app.use(
         
         next();
     });
-
+    app.use(methodOverride('_method'));
 //route the corresponding urls to their controller
 
 app.use('/', mainRoutes);
