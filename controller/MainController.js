@@ -77,7 +77,7 @@ exports.edit = (req, res, next)=>{
        
 };
 
-exports.update = async (req, res, next)=>{
+exports.update = (req, res, next)=>{
     let id = req.params.id;
     //Get proper time format
     var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
@@ -87,12 +87,11 @@ exports.update = async (req, res, next)=>{
     const dayofweek = new Date(req.body.edate);
     const day = dayofweek.getDay();
     console.log(day);
-    
     console.log("`````````````````````````````````````````");
     console.log(req.body);
 
 
-    await db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day, req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
+    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
     var event = db.getEvent(id);
     console.log(event);
     if (req.session.user.role === 'Student') {
