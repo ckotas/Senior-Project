@@ -95,8 +95,9 @@ exports.update = (req, res, next)=>{
     }
     console.log(sRecur);*/
 
-    //db.updateEvent(event.start, event.end, event.url, event.backgroundColor, event.textColor, event.daysOfWeek, 
-        //sRecur, eRecur, event.repeat, event.title, event.description, event.type, event.eventId);
+    db.updateEvent(event.start, event.end, event.backgroundColor, event.textColor, event.daysOfWeek, event.startRecur, event.endRecur, event.repeat, event.title, event.description, event.type, event.eventId);
+    let eventa = db.getEvent(id);
+    console.log(eventa);
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {

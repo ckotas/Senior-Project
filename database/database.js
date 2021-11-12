@@ -60,7 +60,7 @@ exports.createDatabase = () => {
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
-        "messageId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "messageId" INTEGER PRIMARY KEY,
         "recipient" INTEGER NOT NULL,
         "sender" INTEGER NOT NULL,
         "date" DATE NOT NULL,
@@ -113,13 +113,19 @@ exports.deleteEvent = (eventId) => {
 exports.getEvents = (roomId) => {
     return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
-exports.updateEvent = (start, end, url, backgroundColor, textColor, daysOfWeek, startRecur, endRecur, repeat, title, description, type, eventId) => {
-    return db.run(sql`UPDATE "Event" SET "start"= ?, "end"=?, "url"=?, "backgroundColor"= ?, "textColor"=?, "daysOfWeek"=?, "startRecur"=?, "endRecur"=?,"repeat"= ?, "title"=?, "description"=?, "type"= ? WHERE "eventId" = ?`,[start, end, url, backgroundColor, textColor, daysOfWeek, startRecur, endRecur, repeat, title, description, type, eventId]);
-}
-exports.addEvent = (sender, date, time, read, anonymous, message) => {
+exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecur, eRecur, repeat, title, description, type, eventId)=>{
+    db.run(
+        sql`UPDATE "Event"
+            SET "start" = ${start}, "end" = ${end}, "backgroundColor" = ${backgroundColor}, "textColor" = ${textColor},"daysOfWeek" = ${daysOfWeek}, 
+            "startRecur" = ${sRecur}, "endRecur" = ${eRecur}, "repeat" = ${repeat}, "title" = ${title}, "description" = ${description}, "type" = ${type}
+            WHERE "eventId" = ${eventId}`
+    )
+};
+exports.createMessage = (sender, date, time, read, anonymous, message) => {
+    let id = uid(16);
         db.run(
-            sql`INSERT INTO "Message" () VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Message" ("id", "sender","date","time","read", "anonymous", "message) VALUES
+            ()`
         );
    
 }
