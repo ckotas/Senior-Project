@@ -84,14 +84,11 @@ exports.update = (req, res, next)=>{
     var endDateTime = req.body.edate + "T" + req.body.eETime;
     
     //get day of week
-    const dayofweek = new Date(req.body.edate);
-    const day = dayofweek.getDay();
-    console.log(day);
-    console.log("`````````````````````````````````````````");
-    console.log(req.body);
-
-
-    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
+    var dayofweek = new Date(startDateTime);
+    var newday = dayofweek.getDay();
+    console.log(newday);
+ 
+    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
     var event = db.getEvent(id);
     console.log(event);
     if (req.session.user.role === 'Student') {
