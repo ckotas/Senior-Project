@@ -8,7 +8,7 @@
                 <h2><%= event.title%></h2>
             <% if(user.userId == event.creator){%>
             <form>
-            <button type="submit" formmethod="GET" formaction="">Edit</button>
+            <button type="submit" formmethod="GET" formaction="/<%= event.eventId%>/edit">Edit</button>
             <button type="submit" formmethod="POST" formaction="/<%= event.eventId%>?_method=DELETE">Delete</button>
             </form>
             <%}%>

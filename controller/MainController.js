@@ -61,3 +61,27 @@ exports.delete = (req, res, next)=>{
         res.redirect('/RA');
     }
 };
+
+exports.edit = (req, res, next)=>{
+    let id = req.params.id;
+    let event = db.getEvent(id)
+    
+    if (event){
+        res.render('EditEvent', {event})
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
+       
+};
+
+exports.update = (req, res, next)=>{
+
+    
+    if (req.session.user.role === 'Student') {
+        res.redirect('/student');
+    } else if (req.session.user.role === 'RA') {
+        res.redirect('/RA');
+    }
+};
