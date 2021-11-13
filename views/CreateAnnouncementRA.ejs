@@ -1,20 +1,25 @@
 <%- include('partials/header') -%>
 
-    
 
-        <body>
-            <main>
-                <h1>Create Announcement</h1>
-                <form id="CreateAnnouncmentsRA" method="POST" action="/RA/CreateAnnouncementsRA">
-                    <label for="annTitle"> Title:</label>
-                    <input type="text" id="annTitle" name="annTitle">
 
-                    <label for="annType"> Type:</label>
-                    <select name="annType" id="annType">
-                        <option value="Dorm">Dorm</option>
-                        <option value="School">School</option>
-                        <option value="Floor">Floor</option>
-                    </select>
+    <body>
+        <main>
+            <h1>Create Announcement</h1>
+            <form id="CreateAnnouncmentsRA" method="POST" action="/RA/CreateAnnouncementsRA">
+                <label for="annTitle"> Title:</label>
+                <input type="text" id="annTitle" name="annTitle">
+
+                <label for="annType"> Type:</label>
+                <select name="annType" id="annType">
+                    <option value="Dorm">Dorm</option>
+                    <option value="School">School</option>
+                    <option value="Floor">Floor</option>
+                </select>
+
+                <label for="anncolor" >Color:</label> <input type="color" id="annColor" name="annColor"></li>
+                <label for="annTextcolor" >Text Color:</label> <select id="annTextcolor" name="annTextcolor">
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
 
                     <label for="annDate"> Date:</label>
                     <input type="date" id="annDate" name="annDate">
@@ -30,17 +35,17 @@
 
                     <label for="annRepeat">Repeat:</label>
                     <select name="annRepeat" id="annRepeat">
+                        <option value="None">None</option>
                         <option value="Daily">Daily</option>
                         <option value="Weekly">Weekly</option>
-                        <option value="Bi-Weekly">Bi-Weekly</option>
-                        <option value="Month">Month</option>
                     </select>
-
+                    <label for="annRecurDateend">End Date:</label> <input type="date" id="annRecurDateend"
+                        name="annRecurDateend">
                     <label for="annDesc"> Event description:</label>
-                    <textarea name="annDesc" form="annDesc">Event description</textarea>
+                    <textarea name="annDesc" id="annDesc"></textarea>
 
                     <input type="submit" value="Create Announcement">
-                </form>
-            </main>
-        </body>
-        <%- include('partials/footer') -%>
+            </form>
+        </main>
+    </body>
+    <%- include('partials/footer') -%>

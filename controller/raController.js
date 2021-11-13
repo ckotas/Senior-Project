@@ -21,7 +21,6 @@ exports.homepage = (req, res)=>{
         let temp = event[i].daysOfWeek;
         event[i].daysOfWeek = [temp];
     }
-    console.log(event)
 }
 }
       
@@ -88,7 +87,6 @@ exports.createEventRa = (req, res)=>{
 };
 
 exports.createdEventRa = (req, res)=>{
-    console.log(req.body);
     //Get proper time format
     var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
     var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
@@ -118,11 +116,38 @@ exports.logoutRA = (req, res)=>{
 };
 
 exports.CreateAnnouncementsRA = (req, res)=>{
+    
     res.render('CreateAnnouncementRA');
 };
 
+exports.EditAnnouncementsRA = (req, res)=>{
+    
+    
+    res.render('EditAnnouncementRA');
+};
+
 exports.CreatedAnnouncementsRA = (req, res)=>{
-    //set color
-    res.redirect('homepage');
+    console.log(req.body);
+    //Get proper time format
+    var startDateTime = req.body.annDate + "T" + req.body.annStartTime + ":00";
+    var endDateTime = req.body.annDate + "T" + req.body.annEndTime + ":00";
+    
+    //get day of week
+    const dayofweek = new Date(startDateTime);
+    const day = dayofweek.getDay();
+
+    var dayofweek2 = new Date(req.body.eRecurDateend);
+    var endrecur = dayofweek2.getDate();
+    dayofweek2.setDate(endrecur + 1);
+    
+
+    var date =dayofweek2.getUTCDate();
+    var month = dayofweek2.getMonth();
+    var year =dayofweek2.getFullYear();
+
+    recur = (year) + "-" + (month+1) + "-" + date; 
+
+    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annRecurDateend, recur, req.body.annRepeat)
+    res.redirect('/RA');
 };
 
