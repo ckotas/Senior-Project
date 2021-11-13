@@ -16,20 +16,6 @@ exports.createDatabase = () => {
         "password" TEXT NOT NULL,
         "roomId" INTEGER
     );
-    CREATE TABLE "Announcement"(
-        "announcementId" TEXT PRIMARY KEY,
-        "organizer" INTEGER NOT NULL,
-        "title" TEXT NOT NULL,
-        "type" TEXT NOT NULL,
-        "date" DATE NOT NULL,
-        "color" TEXT NOT NULL,
-        "sTime" TIME NOT NULL,
-        "eTime" TIME NOT NULL,
-        "all-day" BOOl NOT NULL,
-        "repeat" BOOl NOT NULL,
-        "description" TEXT NOT NULL,
-        FOREIGN KEY("organizer") REFERENCES Users("userId")
-    );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
         "start" TEXT NOT NULL,
@@ -141,3 +127,15 @@ exports.updateMessage = (resolved, RA, id)=>{
             WHERE "messageID" = ${id}`
     )
 };
+
+exports.createAnnouncement = (start, end, backgroundColor, textColor, daysOfWeek, title, description, id, startRecur, endRecur, repeat, type) => {
+    var uniqueId = uid(15);
+    db.run(
+        sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
+        (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, "000")`
+    );
+}
+
+exports.getAnnouncements = () => {
+    db.get(sql`SELECT * FROM "Event" WHERE "roomId" = "000"`);
+}
