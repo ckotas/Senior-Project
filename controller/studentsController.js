@@ -4,7 +4,7 @@ var { uid } = require('uid');
 
 exports.homepage = (req, res) => {
     let roomId = req.session.user.roomId;
-    let person = req.session.user.fNAme
+    let person = req.session.user.fName
 
     let event = db.getEvents(roomId)
     if (event == undefined) {
@@ -52,7 +52,9 @@ exports.createMessage = (req, res) => {
 };
 
 exports.anouncement = (req, res) => {
-    res.render('Announcements');
+    let announ = db.getAnnouncements();
+
+    res.render('Announcements',{announ});
 };
 
 exports.going = (req, res) => {

@@ -85,7 +85,8 @@ exports.going = (req, res) => {
 
     //for showing announcements
     let announ = db.getEvent(id);
-
+    let attending = db.GetAttending();
+    
 
     res.redirect('homepage');
 };
