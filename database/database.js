@@ -132,10 +132,10 @@ exports.createAnnouncement = (start, end, backgroundColor, textColor, daysOfWeek
     var uniqueId = uid(15);
     db.run(
         sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
-        (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, "000")`
+        (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${"0"})`
     );
 }
 
 exports.getAnnouncements = () => {
-    db.get(sql`SELECT * FROM "Event" WHERE "roomId" = "000"`);
+    db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
 }
