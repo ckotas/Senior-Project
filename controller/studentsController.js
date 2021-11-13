@@ -38,7 +38,7 @@ exports.createMessage = (req, res) => {
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    //db.createMessage(req.session.user.userId, req.body.messagesubject, req.body.details, req.body.anonymous, date, time);
+    //db.createMessage(req.session.user.userId, req.session.user.roomId, req.body.messagesubject, req.body.details, req.body.anonymous, date, time);
     res.render('HomePage');
 };
 
@@ -64,6 +64,7 @@ exports.createdEvent = (req, res) => {
     //get day of week
     var dayofweek = new Date(startDateTime);
     var day = dayofweek.getDay();
+    dayofweek.setDate(day+1);
 
     db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
     res.redirect('/student');
