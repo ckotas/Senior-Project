@@ -5,18 +5,24 @@
         <body>
             <main>
                 <h1>View Message</h1>
-                <form id="message" id="ViewMessage" method="POST" action="/ViewMessage">
-                    <label for="messagesender"> From:</label>
-                    <input type="text" id="messagesender" name="messagesender">
-                    <label for="messagesubject"> Subject:</label>
-                    <input type="text" id="messagesubject" name="messagesubject">
-                    <label for="messagedetails"> Details: </label>
-                    <textarea name="messagedetails" form="message">Details</textarea>
-                    <label for="messageRA"> RA: </label>
-                    <input type="text" id="messageRA" name="messageRA">
-                    <input type="checkbox" id="resolved" name="resolved" value="yes">
+                <form id="ViewMessage" method="POST" action="../updatemessage/<%= message.messageId%>?_method=PUT">
+
+                    <%if(message.anonymous){%>
+                        <label for="messagesender"> Room: <%= message.roomId %> </label>
+                    <%}else{%>
+                        <label for="messagesender"> From: <%= name.fName + " " + name.lName %> </label>
+                    <%}%>
+
+                    <label for="messagesubject"> Subject:<%= message.subject %></label>
+
+                    <label for="messagedetails"> Details: <%= message.message %></label>
+
+                    <label for="messageRA"> RA:</label>
+                    <input type="text" id="messageRA" name="messageRA" value="<%= message.TA %>">
+
+                    <input type="checkbox" id="resolved" name="resolved" value="1">
                     <label for="resolved"> Resolved </label>
-                    <input type="submit" value="Submit">
+                    <button type="submit"  id="formButton" >Update Message</button>
                 </form>
 
             </main>

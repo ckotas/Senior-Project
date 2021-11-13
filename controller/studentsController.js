@@ -38,8 +38,16 @@ exports.createMessage = (req, res) => {
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    //db.createMessage(req.session.user.userId, req.session.user.roomId, req.body.messagesubject, req.body.details, req.body.anonymous, date, time);
-    res.render('HomePage');
+    var anon = 0;
+    if(req.body.anonymous == "yes"){
+        anon = 1;
+    }
+    db.createMessage(req.session.user.userId, req.session.user.roomId, req.body.messagesubject, req.body.details, anon, date, time);
+    if (req.session.user.role === 'Student') {
+        res.redirect('/student');
+    } else if (req.session.user.role === 'RA') {
+        res.redirect('/RA');
+    }
 };
 
 exports.anouncement = (req, res) => {
@@ -64,9 +72,19 @@ exports.createdEvent = (req, res) => {
     //get day of week
     var dayofweek = new Date(startDateTime);
     var day = dayofweek.getDay();
-    dayofweek.setDate(day+1);
+    
+    var dayofweek2 = new Date(req.body.eRecurDateend);
+    var endrecur = dayofweek2.getDate();
+    dayofweek2.setDate(endrecur + 1);
+    
 
-    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
+    var date =dayofweek2.getUTCDate();
+    var month = dayofweek2.getMonth();
+    var year =dayofweek2.getFullYear();
+
+    recur = (year) + "-" + (month+1) + "-" + date; 
+
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, recur, req.body.eRepeat)
     res.redirect('/student');
 };
 

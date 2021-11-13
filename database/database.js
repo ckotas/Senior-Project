@@ -15,7 +15,6 @@ exports.createDatabase = () => {
         "email" TEXT NOT NULL,
         "password" TEXT NOT NULL,
         "roomId" INTEGER
-        
     );
     CREATE TABLE "Announcement"(
         "announcementId" TEXT PRIMARY KEY,
@@ -30,15 +29,6 @@ exports.createDatabase = () => {
         "repeat" BOOl NOT NULL,
         "description" TEXT NOT NULL,
         FOREIGN KEY("organizer") REFERENCES Users("userId")
-    );
-    
-    CREATE TABLE "Planner"(
-        "plannerId" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "roomId" INTEGER NOT NULL,
-        "date" DATE NOT NULL,
-        "time" TIME NOT NULL,
-        "message" TEXT
-        
     );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
@@ -56,19 +46,19 @@ exports.createDatabase = () => {
         "type" TEXT NOT NULL,
         "roomId" INTEGER NOT NULL,
         "creator" INTEGER NOT NULL,
-        
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
-        "messageId" INTEGER PRIMARY KEY,
-        "recipient" INTEGER NOT NULL,
-        "sender" INTEGER NOT NULL,
+        "messageId" TEXT PRIMARY KEY,
+        "sender" TEXT NOT NULL,
+        "roomId" INTEGER NOT NULL,
+        "subject" TEXT NOT NULL,
+        "message" TEXT NOT NULL,
+        "anonymous" BOOL NOT NULL,
         "date" DATE NOT NULL,
         "time" TIME NOT NULL,
-        "read" BOOl NOT NULL,
-        "anonymous" BOOL NOT NULL, 
-        "message" TEXT NOT NULL,
-        FOREIGN KEY("recipient") REFERENCES Users("userId"),
+        "resolved" BOOL,
+        "TA" TEXT,
         FOREIGN KEY("sender") REFERENCES Users("userId")
     );
 `);
@@ -87,6 +77,10 @@ exports.createUser = (fname, lname, role, email, password, roomId) => {
 
 exports.getUser = (email, password) => {
     return db.get(sql`SELECT * FROM "Users" WHERE "email" = ${email} and "password" = ${password} `);
+}
+
+exports.getUserid = (id) => {
+    return db.get(sql`SELECT fName, lName FROM "Users" WHERE "userId" = ${id}`);
 }
 
 exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, description, type, id, roomId, startRecur, endRecur, repeat) => {
@@ -121,11 +115,29 @@ exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecu
             WHERE "eventId" = ${eventId}`
     )
 };
-exports.createMessage = (sender, date, time, read, anonymous, message) => {
+exports.createMessage = (sender, roomId, subject, message, anonymous, date, time) => {
     let id = uid(16);
         db.run(
-            sql`INSERT INTO "Message" ("id", "sender","date","time","read", "anonymous", "message) VALUES
-            ()`
+            sql`INSERT INTO "Message" ("messageId", "sender","roomId","subject", "message", "anonymous", "date", "time", "resolved") VALUES
+            (${id},${sender},${roomId},${subject},${message},${anonymous},${date},${time}, ${0})`
         );
-   
 }
+exports.getMessage = (messageId) => {
+    return db.get(sql`SELECT * FROM "Message" WHERE "messageId" = ${messageId}`);
+}
+
+exports.getResolvedMessage = () => {
+    return db.all(sql`SELECT * FROM "Message" WHERE "resolved" = ${1}`);
+}
+
+exports.getUnResolvedMessage = () => {
+    return db.all(sql`SELECT * FROM "Message" WHERE "resolved" = ${0}`);
+}
+
+exports.updateMessage = (resolved, RA, id)=>{
+    db.run(
+        sql`UPDATE "Message"
+            SET "resolved" = ${resolved}, "TA" = ${RA}
+            WHERE "messageID" = ${id}`
+    )
+};

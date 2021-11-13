@@ -9,9 +9,9 @@ const db = require('./database/database');
 const methodOverride = require('method-override');
 
 //db.createDatabase();
-//db.createUser("FirstN", "LastN", "Student", "test1@test.com", "password", "1");
-//db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password", "1");
-//db.createUser("FirstN", "LastN", "RA", "test3@test.com", "password", "2");
+// db.createUser("FirstN", "LastN", "Student", "test1@test.com", "password", "1");
+// db.createUser("FirstN", "LastN", "RA", "test2@test.com", "password", "1");
+// db.createUser("FirstN", "LastN", "RA", "test3@test.com", "password", "2");
 
 
 //configure app

@@ -21,6 +21,10 @@ router.post('/createEvent', controller.createdEventRa);
 
 router.get('/logout', controller.logoutRA);
 
+router.get('/message/:id', controller.viewMessage);
+
+router.put('/updatemessage/:id', controller.updateMessage);
+
 router.get('/CreateAnnouncementsRA', controller.CreateAnnouncementsRA);
 
 router.post('/CreateAnnouncementsRA', controller.CreatedAnnouncementsRA);

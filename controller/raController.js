@@ -1,5 +1,6 @@
 const db = require('../database/database');
 var {uid} = require('uid');
+var moment = require('moment');
 
 exports.homepage = (req, res)=>{
     let roomId = req.session.user.roomId
@@ -29,7 +30,44 @@ exports.homepage = (req, res)=>{
 };
 
 exports.inbox = (req, res)=>{
-    res.render('inboxRA');
+    var resmess= db.getResolvedMessage();
+    var unresmess= db.getUnResolvedMessage();
+
+    if (resmess || unresmess){
+        res.render('inboxRA', {resmess, unresmess})
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
+};
+exports.viewMessage = (req, res)=>{
+    var id =req.params.id;
+    var message = db.getMessage(id);
+    var name = db.getUserid(message.sender);
+    if (message){
+        res.render('ViewMessage', {message, name})
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
+};
+exports.updateMessage = (req, res)=>{
+    
+    var resolved = req.body.resolved;
+    var ra = req.body.messageRA;
+    var id = req.params.id;
+
+    if(resolved == null){
+        resolved = 0;
+    }else{
+        resolved = 1;
+    }
+
+    db.updateMessage(resolved, ra, id);
+
+    res.redirect('../inbox')
 };
 
 exports.anouncementRA = (req, res)=>{
@@ -59,7 +97,18 @@ exports.createdEventRa = (req, res)=>{
     const dayofweek = new Date(startDateTime);
     const day = dayofweek.getDay();
 
-    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
+    var dayofweek2 = new Date(req.body.eRecurDateend);
+    var endrecur = dayofweek2.getDate();
+    dayofweek2.setDate(endrecur + 1);
+    
+
+    var date =dayofweek2.getUTCDate();
+    var month = dayofweek2.getMonth();
+    var year =dayofweek2.getFullYear();
+
+    recur = (year) + "-" + (month+1) + "-" + date; 
+
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, recur, req.body.eRepeat)
     res.redirect('/RA');
 };
 

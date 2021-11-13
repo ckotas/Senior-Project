@@ -1,38 +1,69 @@
 <%- include('partials/header') -%>
 
-    
 
-        <body>
-            <main>
-                <h1>Inbox</h1>
-                <div class="resolved">
-                    <table>
-                        <th>
+
+    <body>
+        <main>
+            <h1>Inbox</h1>
+            <div class="unresolved">
+                <table>
+                    <th>
+                    <td>From:</td>
+                    <td>Subject:</td>
+                    <td>RA Asssigned</td>
+                    </th>
+                    <% for( var x=0; x < unresmess.length; x++){ %>
+                        <tr>
+                            <td>
+                                <%= unresmess[x].roomId %>
+                            </td>
+                            <td>
+                                <%= unresmess[x].subject %>
+                            </td>
+                            <td>
+                                <% if(unresmess[x].TA==null||unresmess[x].TA=='' ) {%>
+                                    <input type="checkbox" name="status" disabled="disabled">
+                                    <% }else{ %>
+                                        <input type="checkbox" name="status" disabled="disabled" checked>
+                                        <% } %>
+                            </td>
+                            <td> <a href="./message/<%=unresmess[x].messageId%>">Update</a></td>
+                        </tr>
+                        <% } %>
+                </table>
+            </div>
+            <div class="resolved">
+                <table>
+                    <thead>
                         <td>From:</td>
                         <td>Subject:</td>
-                        <td>Status</td>
-                        </th>
-                        <tr>
-                            <td>Room 310</td>
-                            <td>My roomate smells.</td>
-                            <input type="checkbox" name="status" />
-                        </tr>
-                    </table>
+                        <td>RA Asssigned</td>
+                    </thead>
+                    <tbody>
+                        <% for( var x=0; x < resmess.length; x++){ %>
+                            <div>
+                                <tr>
+                                    <td>
+                                        <%= resmess[x].roomId %>
+                                    </td>
+                                    <td>
+                                        <%= resmess[x].subject %>
+                                    </td>
+                                    <td>
+                                        <% if(resmess[x].TA==null || resmess[x].TA=='' ) {%>
+                                            <input type="checkbox" name="status" disabled="disabled">
+                                            <% }else{ %>
+                                                <input type="checkbox" name="status" disabled="disabled" checked>
+                                                <% } %>
+                                    </td>
+                                    <td> <a href="./message/<%=resmess[x].messageId%>">Update</a></td>
+                                </tr>
+                            </div>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
 
-                </div>
-                <div class="unResolved">
-                    <table>
-                        <th>
-                        <td>From:</td>
-                        <td>Subject:</td>
-                        <td>Status</td>
-                        </th>
-                        <tr>
-                            <td>Room 310</td>
-                            <td>My roomate keeps sniffing me.</td>
-                            <input type="checkbox" name="status" />
-                        </tr>
-                </div>
-            </main>
-        </body>
-        <%- include('partials/footer') -%>
+        </main>
+    </body>
+    <%- include('partials/footer') -%>
