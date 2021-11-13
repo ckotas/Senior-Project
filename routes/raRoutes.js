@@ -11,9 +11,11 @@ router.get('/announcements', controller.anouncementRA);
 
 router.post('/announcements', controller.anouncementRA);
 
-router.get('/editAnnouncement', controller.editAnnouncement);
+router.delete('/:id',  controller.deleteAnnouncement);
 
-router.post('/going', controller.going);
+router.get('/:id/edit', controller.EditAnnouncementsRA);
+
+router.post('/<%= announ[x].eventId%>/going', controller.going);
 
 router.get('/createEvent', controller.createEventRa);
 

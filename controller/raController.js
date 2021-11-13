@@ -3,11 +3,16 @@ var { uid } = require('uid');
 var moment = require('moment');
 
 exports.homepage = (req, res) => {
-    let roomId = req.session.user.roomId
-
+    let roomId = req.session.user.roomId;
+    let person = req.session.user.fName;
     let event = db.getEvents(roomId)
-    let announ = db.getAnnouncements();
-    console.log(announ);
+    //for showing announcements
+    // let announ = db.getAnnouncements();
+
+    // for(var i=0; i<=announ.length-1;i++){
+    //     event.push(announ[i]);
+    // }
+    
     if (event == undefined) {
 
     } else {
@@ -25,26 +30,7 @@ exports.homepage = (req, res) => {
             }
         }
     }
-    if (event == undefined) {
-
-    } else {
-        for (let i = 0; i < event.length; i++) {
-            if (event[i].repeat === 'None') {
-                delete event[i].daysOfWeek
-                delete event[i].startRecur
-                delete event[i].endRecur
-            } else if (event[i].repeat === 'Daily') {
-                event[i].daysOfWeek = ['0', '1', '2', '3', '4', '5', '6']
-
-            } else if (event.repeat === 'Weekly') {
-                let temp = event[i].daysOfWeek;
-                event[i].daysOfWeek = [temp];
-            }
-        }
-    }
-
-
-    res.render('HomePage', { event });
+    res.render('HomePage', { event, person });
 };
 
 exports.inbox = (req, res) => {
@@ -89,15 +75,18 @@ exports.updateMessage = (req, res) => {
 };
 
 exports.anouncementRA = (req, res) => {
-    res.render('Announcements');
-};
+    let announ = db.getAnnouncements();
 
-exports.editAnnouncement = (req, res) => {
-
-    res.render('CreateAnnouncementRA');
+    res.render('Announcements',{announ});
 };
 
 exports.going = (req, res) => {
+    let id = req.params.id
+
+    //for showing announcements
+    let announ = db.getEvent(id);
+
+
     res.redirect('homepage');
 };
 
@@ -141,8 +130,16 @@ exports.CreateAnnouncementsRA = (req, res) => {
 
 exports.EditAnnouncementsRA = (req, res) => {
 
-
-    res.render('EditAnnouncementRA');
+    let id = req.params.id;
+    let event = db.getEvent(id)
+    console.log(event);
+    if (event){
+        res.render('EditAnnouncementRA', {event})
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
 };
 
 exports.CreatedAnnouncementsRA = (req, res) => {
@@ -170,3 +167,11 @@ exports.CreatedAnnouncementsRA = (req, res) => {
     res.redirect('/RA');
 };
 
+exports.deleteAnnouncement = (req, res) => {
+    
+    let id = req.params.id;
+    
+    db.deleteEvent(id)
+
+    res.redirect('/RA');
+};

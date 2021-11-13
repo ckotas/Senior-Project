@@ -1,0 +1,46 @@
+<%- include('partials/header') -%>
+
+    
+
+        <body>
+            <main >
+                <h1>Edit Announcement</h1>
+                <Form id="createEvent" action = '/<%= event.eventId%>?_method=PUT' method = 'POST'>
+                    <ul>
+                        <li> <label for="eTitle" class="eventForm">Event Title:</label> <input type="text" id="eTitle" name="eTitle" value="<%= event.title%>" required></li>
+                        <li> <label for="eType" class="eventForm">Type:</label> <select type="text" id="eType" name="eType" value="<%= event.type%>" required></li>
+                            <option value="Dorm">Dorm</option>
+                            <option value="School">School</option>
+                            <option value="Floor">Floor</option>
+                        <li> <label for="ecolor" class="eventForm">Color:</label> <input type="color" id="eColor" name="eColor" value="<%= event.backgroundColor%>"></li>
+                        <li> <label for="eTextcolor" class="eventForm">Text Color:</label> <select id="eTextcolor" name="eTextcolor" >
+                            <option value="Black">Black</option>
+                            <option value="White">White</option>
+                        </li>
+                        <% 
+            let dateTime = event.start.split('T');
+            
+            let end = event.end.split('T');
+            
+
+            %>
+                        <li> <label for="edate" class="eventForm">Date:</label> <input type="date" id="edate" name="edate" value="<%= dateTime[0]%>"></li>
+                        <li> <label for="eSTime" class="eventForm">Start Time:</label> <input type="time" id="eSTime" name="eSTime"value="<%= dateTime[1]%>" ></li>
+                        <li> <label for="eETime" class="eventForm">End Time:</label> <input type="time" id="eETime" name="eETime" value="<%= end[1]%>"></li>
+                        <li> <label for="eRepeat" class="eventForm">Repeat Event:</label> <select id="eRepeat" name="eRepeat" >
+                            <option value="None">None</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            
+                        </li>
+                        
+                        <li> <label for="eRecurDateend" class="eventForm">End Date:</label> <input type="date" id="eRecurDateend" name="eRecurDateend" value="<%= event.endRecur%>"></li>
+                        <li> <label for="eDescription" class="eventForm">Event Description:</label> <input type="text" id="eDescription" name="eDescription" value="<%= event.description%>"></li>
+                        <li >  <button type="submit"  id="formButton" >Update Event</button></li>
+                        
+                    </ul>
+                </Form>
+
+            </main>
+        </body>
+        <%- include('partials/footer') -%>

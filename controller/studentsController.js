@@ -3,7 +3,8 @@ var { uid } = require('uid');
 
 
 exports.homepage = (req, res) => {
-    let roomId = req.session.user.roomId
+    let roomId = req.session.user.roomId;
+    let person = req.session.user.fNAme
 
     let event = db.getEvents(roomId)
     if (event == undefined) {
@@ -27,7 +28,7 @@ exports.homepage = (req, res) => {
     }
 
 
-    res.render('HomePage', { event });
+    res.render('HomePage', { event, person});
 };
 
 exports.message = (req, res) => {

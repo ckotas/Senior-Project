@@ -16,6 +16,7 @@ exports.createDatabase = () => {
         "password" TEXT NOT NULL,
         "roomId" INTEGER
     );
+    
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
         "start" TEXT NOT NULL,
@@ -137,5 +138,9 @@ exports.createAnnouncement = (start, end, backgroundColor, textColor, daysOfWeek
 }
 
 exports.getAnnouncements = () => {
-    db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
+   return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
+}
+
+exports.deleteAnnouncement = (eventId) => {
+    return db.run(sql`DELETE FROM "Event" WHERE "eventId" = ${eventId}`);
 }
