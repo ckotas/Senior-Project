@@ -86,7 +86,7 @@ exports.going = (req, res, next) => {
 
     let id = req.params.id
     var user = req.session.user.userId;
-    console.log(db.getGoing(user, id))
+    
     if( db.getGoing(user, id).length == 0){
         db.addtoUserProfile(user, id);
     }
@@ -153,7 +153,7 @@ exports.EditAnnouncementsRA = (req, res) => {
 };
 
 exports.CreatedAnnouncementsRA = (req, res) => {
-    console.log(req.body);
+
     //Get proper time format
     var startDateTime = req.body.annDate + "T" + req.body.annStartTime + ":00";
     var endDateTime = req.body.annDate + "T" + req.body.annEndTime + ":00";

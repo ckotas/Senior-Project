@@ -33,7 +33,7 @@ exports.homepage = (req, res) => {
             }
 
         }
-        //console.log(event)
+        
     }
 
 
@@ -69,7 +69,7 @@ exports.anouncement = (req, res) => {
 exports.going = (req, res) => {
     let id = req.params.id
     var user = req.session.user.userId;
-    console.log(db.getGoing(user, id))
+    
     if( db.getGoing(user, id).length == 0){
         db.addtoUserProfile(user, id);
     }
@@ -90,7 +90,6 @@ exports.createEvent = (req, res) => {
 };
 
 exports.createdEvent = (req, res) => {
-    //console.log(req.body);
     //Get proper time format
     var startDateTime = req.body.edate + "T" + req.body.eSTime;
     var endDateTime = req.body.edate + "T" + req.body.eETime;

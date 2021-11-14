@@ -16,10 +16,10 @@ exports.login = (req, res) => {
     res.render('login');
 };
 exports.eventDetails = (req, res, next) => {
-    //req.param.id
+    
     let id = req.params.id
     let event = db.getEvent(id)
-    //console.log(event)
+    
     
     
         if (event){
@@ -99,8 +99,7 @@ exports.update = (req, res, next)=>{
     recur = (year) + "-" + (month+1) + "-" + date; 
 
     db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, recur, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
-    var event = db.getEvent(id);
-    console.log(event);
+    
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {

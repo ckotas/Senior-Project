@@ -11,8 +11,13 @@
                         <li> <label for="eType" class="eventForm">Type:</label> <input type="text" id="eType" name="eType" value="<%= event.type%>" required></li>
                         <li> <label for="ecolor" class="eventForm">Color:</label> <input type="color" id="eColor" name="eColor" value="<%= event.backgroundColor%>"></li>
                         <li> <label for="eTextcolor" class="eventForm">Text Color:</label> <select id="eTextcolor" name="eTextcolor" >
-                            <option value="Black">Black</option>
-                            <option value="White">White</option>
+                            <% if(event.textColor == 'White'){%>
+                                <option value="Black">Black</option>
+                                <option value="White" selected>White</option>
+                                <% }else{%>
+                                    <option value="Black" selected>Black</option>
+                                    <option value="White">White</option>
+                            <%}%>
                         </li>
                         <% 
             let dateTime = event.start.split('T');
@@ -24,11 +29,21 @@
                         <li> <label for="edate" class="eventForm">Date:</label> <input type="date" id="edate" name="edate" value="<%= dateTime[0]%>"></li>
                         <li> <label for="eSTime" class="eventForm">Start Time:</label> <input type="time" id="eSTime" name="eSTime"value="<%= dateTime[1]%>" ></li>
                         <li> <label for="eETime" class="eventForm">End Time:</label> <input type="time" id="eETime" name="eETime" value="<%= end[1]%>"></li>
+
                         <li> <label for="eRepeat" class="eventForm">Repeat Event:</label> <select id="eRepeat" name="eRepeat" >
+                            <% if(event.repeat == 'Daily'){%>
+                                <option value="None" >None</option>
+                                <option value="Daily" selected>Daily</option>
+                                <option value="Weekly">Weekly</option> 
+                                <% }else if(event.repeat == 'Weekly'){%>
                             <option value="None">None</option>
                             <option value="Daily">Daily</option>
+                            <option value="Weekly" selected>Weekly</option>
+                            <%}else{%>
+                            <option value="None" selected>None</option>
+                            <option value="Daily">Daily</option>
                             <option value="Weekly">Weekly</option>
-                            
+                           <% }%>
                         </li>
                         
                         <li> <label for="eRecurDateend" class="eventForm">End Date:</label> <input type="date" id="eRecurDateend" name="eRecurDateend" value="<%= event.endRecur%>"></li>
