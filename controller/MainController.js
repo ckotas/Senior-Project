@@ -35,11 +35,12 @@ exports.eventDetails = (req, res, next) => {
         days = Math.floor(days);
         if (list2.length > days) {
             days = list2[days];
+        }else {
+            days =-1;
         }
     }else if(event.repeat == "Weekly") {
 
     }
-    console.log(days)
     var going;
     if (db.getGoing(req.session.user.userId, id).length == 0) {
         going = 0;
@@ -158,7 +159,7 @@ function getrandomuser(eventId, roomId) {
 function getdays(start) {
     var date1 = new Date(start);
     //needs to be changes for different days
-    var date2 = new Date("2021-11-9");
+    var date2 = new Date("2021-11-7");
 
     // To calculate the time difference of two dates
     var Difference_In_Time = date2.getTime() - date1.getTime();
