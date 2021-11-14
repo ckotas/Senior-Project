@@ -21,6 +21,9 @@
                                 <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
                                 <th rowspan="2" class="announcement-going">
                                     <form>
+                                        <button type="submit" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
+                                    </form>
+                                    <form>
                                         <button type="submit" formmethod="POST" formaction="/student/going/<%= announ[x].eventId%>">Going</button>
                                     </form>
                                 </th>
@@ -50,6 +53,9 @@
                                         <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
                                         <th rowspan="2" class="announcement-going">
                                             <form>
+                                                <button type="submit" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
+                                            </form>
+                                            <form>
                                                 <button type="submit" formmethod="POST" formaction="/RA/going/<%= announ[x].eventId%>">Going</button>
                                             </form>
                                         </th>
@@ -61,8 +67,8 @@
                                     </tr>
                                     <tr>
                                         <form>
-                                            <button type="submit" formmethod="GET" formaction="/RA/<%= announ[x].eventId%>/edit">Edit</button>
-                                            <button type="submit" formmethod="POST" formaction="/RA/<%= announ[x].eventId%>?_method=DELETE">Delete</button>
+                                           <td> <button type="submit" formmethod="GET" formaction="/RA/<%= announ[x].eventId%>/edit">Edit</button> </td>
+                                           <td> <button type="submit" formmethod="POST" formaction="/RA/<%= announ[x].eventId%>?_method=DELETE">Delete</button></td>
                                         </form>
                                     </tr>
                                     <% } %>

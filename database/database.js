@@ -17,8 +17,13 @@ exports.createDatabase = () => {
         "roomId" INTEGER
     );
     CREATE TABLE "UserProfile"(
-        "userId" TEXT PRIMARY KEY,
+        "userId" TEXT,
         "announcements" TEXT 
+    );
+    CREATE TABLE "randomRM"(
+        "roomId" TEXT,
+        "eventId" TEXT,
+        "rndmlist" TEXT 
     );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
@@ -163,3 +168,19 @@ exports.addtoUserProfile = (userId, announ) => {
  exports.removeUserattending = (userId, announ) => {
     return db.run(sql`DELETE FROM "UserProfile" WHERE "userId" = ${userId} and announcements = ${announ}`);
 }
+
+exports.countOfEvent = (eventId) => {
+    return db.get(sql`SELECT COUNT("userId") FROM "UserProfile" WHERE "announcements" = ${eventId}`);
+}
+
+exports.getRoomates= (roomId) => {
+    return db.all(sql`SELECT * FROM "Users" WHERE "roomId" = ${roomId}`);
+ };
+
+ exports.addtoRngList = (roomId, eventId, rndmlist) => {
+    db.run(sql`INSERT INTO "randomRM" ("roomId", "eventId", "rndmlist") VALUES (${roomId}, ${eventId}, ${rndmlist})`);
+ };
+
+ exports.checkRngList = (roomId, eventId) => {
+    return db.all(sql`SELECT * FROM "randomRM" WHERE "roomId" = ${roomId} and "eventId" = ${eventId}`);
+ };
