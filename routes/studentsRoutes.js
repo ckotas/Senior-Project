@@ -13,6 +13,10 @@ router.get('/announcements', controller.anouncement);
 
 router.post('/announcements', controller.going);
 
+router.post('/going/:id', controller.going);
+
+router.delete('/removeAnnoun/:id', controller.removeAnnoun);
+
 router.get('/createEvent', controller.createEvent);
 
 router.post('/createEvent', controller.createdEvent);

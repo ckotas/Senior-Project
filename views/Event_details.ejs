@@ -12,6 +12,15 @@
             <button type="submit" formmethod="POST" formaction="/<%= event.eventId%>?_method=DELETE">Delete</button>
             </form>
             <%}%>
+            <% if(event.roomId == 0){%>
+                <form>
+                   <% if(user.role == "student"){%>
+                        <button type="submit" formmethod="POST" formaction="/student/removeAnnoun/<%= event.eventId%>?_method=DELETE">Delete</button>
+                        <%}else{%>
+                        <button type="submit" formmethod="POST" formaction="/RA/removeAnnoun/<%= event.eventId%>?_method=DELETE">Delete</button>
+                        <%}%>
+                </form>
+                <%}%>
             <% 
             let dateTime = event.start.split('T');
             let start = moment(dateTime[1], 'HH:mm:ss').format('hh:mm A');

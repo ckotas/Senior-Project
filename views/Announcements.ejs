@@ -10,7 +10,6 @@
 
             <h1 class="announcement-text">Announcements</h1>
             <div class="announcement-container">
-                <form id="anouncementspage" method="POST" action="./Announcements">
                     <table class="announcement-list">
                         <tbody>
                             <% for( var x=0; x < announ.length; x++){ %>
@@ -21,7 +20,9 @@
 
                                 <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
                                 <th rowspan="2" class="announcement-going">
-                                    <button type="submit" class="going-button" value="going">Going</button>
+                                    <form>
+                                        <button type="submit" formmethod="POST" formaction="/student/going/<%= announ[x].eventId%>">Going</button>
+                                    </form>
                                 </th>
                             </tr>
                             <tr>
@@ -31,9 +32,7 @@
                             </tr>
                             <% } %>
                         </tbody>
-
                     </table>
-                </form>
             </div>
 
             <%} else if (user.role==='RA' ) {%>
@@ -43,7 +42,6 @@
                         <table>
                             <tbody>
                                 <% for( var x=0; x < announ.length; x++){ %>
-                                    <form id="anouncementsRa" method="POST" action="/RA/<%= announ[x].eventId%>/going"></form>
                                     <tr>
                                         <td>
                                            <%= announ[x].type %> Event
@@ -51,7 +49,9 @@
         
                                         <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
                                         <th rowspan="2" class="announcement-going">
-                                            <button type="submit" class="going-button" value="going">Going</button>
+                                            <form>
+                                                <button type="submit" formmethod="POST" formaction="/RA/going/<%= announ[x].eventId%>">Going</button>
+                                            </form>
                                         </th>
                                     </tr>
                                     <tr>
@@ -65,7 +65,6 @@
                                             <button type="submit" formmethod="POST" formaction="/RA/<%= announ[x].eventId%>?_method=DELETE">Delete</button>
                                         </form>
                                     </tr>
-                                </form>
                                     <% } %>
                                 
                             </tbody>

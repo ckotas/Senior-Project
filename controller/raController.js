@@ -7,12 +7,14 @@ exports.homepage = (req, res) => {
     let person = req.session.user.fName;
     let event = db.getEvents(roomId)
     //for showing announcements
-    // let announ = db.getAnnouncements();
+    let announ = db.getUserAnnouncemetns(req.session.user.userId);
 
-    // for(var i=0; i<=announ.length-1;i++){
-    //     event.push(announ[i]);
-    // }
-    
+     for(var x=0; x< announ.length; x++){
+
+        event.push(db.getEvent(announ[x].announcements)); 
+       
+     }   
+     
     if (event == undefined) {
 
     } else {
@@ -77,18 +79,26 @@ exports.updateMessage = (req, res) => {
 exports.anouncementRA = (req, res) => {
     let announ = db.getAnnouncements();
 
-    res.render('Announcements',{announ});
+    res.render('Announcements', { announ });
 };
 
-exports.going = (req, res) => {
+exports.going = (req, res, next) => {
+
     let id = req.params.id
+    var user = req.session.user.userId;
+    console.log(db.getGoing(user, id))
+    if( db.getGoing(user, id).length == 0){
+        db.addtoUserProfile(user, id);
+    }
 
-    //for showing announcements
-    let announ = db.getEvent(id);
-    let attending = db.GetAttending();
-    
+    res.redirect('/RA');
+};
 
-    res.redirect('homepage');
+exports.removeAnnoun = (req, res) => {
+    let id = req.params.id
+    var user = req.session.user.userId;
+    db.removeUserattending(user, id);
+    res.redirect('/student');
 };
 
 exports.createEventRa = (req, res) => {
@@ -133,9 +143,8 @@ exports.EditAnnouncementsRA = (req, res) => {
 
     let id = req.params.id;
     let event = db.getEvent(id)
-    console.log(event);
-    if (event){
-        res.render('EditAnnouncementRA', {event})
+    if (event) {
+        res.render('EditAnnouncementRA', { event })
     } else {
         let err = new Error('Cannot find a event with id ' + id);
         err.status = 404;
@@ -169,9 +178,9 @@ exports.CreatedAnnouncementsRA = (req, res) => {
 };
 
 exports.deleteAnnouncement = (req, res) => {
-    
+
     let id = req.params.id;
-    
+
     db.deleteEvent(id)
 
     res.redirect('/RA');

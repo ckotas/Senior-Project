@@ -16,7 +16,10 @@ exports.createDatabase = () => {
         "password" TEXT NOT NULL,
         "roomId" INTEGER
     );
-    
+    CREATE TABLE "UserProfile"(
+        "userId" TEXT PRIMARY KEY,
+        "announcements" TEXT 
+    );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
         "start" TEXT NOT NULL,
@@ -143,4 +146,20 @@ exports.getAnnouncements = () => {
 
 exports.deleteAnnouncement = (eventId) => {
     return db.run(sql`DELETE FROM "Event" WHERE "eventId" = ${eventId}`);
+}
+
+exports.addtoUserProfile = (userId, announ) => {
+   db.run(sql`INSERT INTO "UserProfile" ("userId", "announcements") VALUES (${userId}, ${announ})`);
+};
+
+ exports.getGoing = (userId, announ) => {
+    return db.all(sql`SELECT * FROM "UserProfile" WHERE "userId" = ${userId} and "announcements" = ${announ}`);
+ };
+
+ exports.getUserAnnouncemetns= (userId) => {
+    return db.all(sql`SELECT "announcements" FROM "UserProfile" WHERE "userId" = ${userId}`);
+ };
+
+ exports.removeUserattending = (userId, announ) => {
+    return db.run(sql`DELETE FROM "UserProfile" WHERE "userId" = ${userId} and announcements = ${announ}`);
 }

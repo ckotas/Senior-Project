@@ -7,6 +7,15 @@ exports.homepage = (req, res) => {
     let person = req.session.user.fName
 
     let event = db.getEvents(roomId)
+
+    let announ = db.getUserAnnouncemetns(req.session.user.userId);
+
+     for(var x=0; x< announ.length; x++){
+
+        event.push(db.getEvent(announ[x].announcements)); 
+       
+     }  
+
     if (event == undefined) {
 
     } else {
@@ -58,7 +67,21 @@ exports.anouncement = (req, res) => {
 };
 
 exports.going = (req, res) => {
-    res.redirect('HomePage');
+    let id = req.params.id
+    var user = req.session.user.userId;
+    console.log(db.getGoing(user, id))
+    if( db.getGoing(user, id).length == 0){
+        db.addtoUserProfile(user, id);
+    }
+
+    res.redirect('/student');
+};
+
+exports.removeAnnoun = (req, res) => {
+    let id = req.params.id
+    var user = req.session.user.userId;
+    db.removeUserattending(user, id);
+    res.redirect('/student');
 };
 
 exports.createEvent = (req, res) => {
