@@ -23,7 +23,8 @@ exports.createDatabase = () => {
     CREATE TABLE "randomRM"(
         "roomId" TEXT,
         "eventId" TEXT,
-        "rndmlist" TEXT 
+        "rndmlist" TEXT,
+        "endDate" TEXT 
     );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
@@ -137,20 +138,12 @@ exports.updateMessage = (resolved, RA, id)=>{
     )
 };
 
-exports.createAnnouncement = (start, end, backgroundColor, textColor, daysOfWeek, title, description, id, startRecur, endRecur, repeat, type) => {
-    var uniqueId = uid(15);
-    db.run(
-        sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
-        (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${"0"})`
-    );
-}
-
 exports.getAnnouncements = () => {
    return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
 }
 
 exports.deleteAnnouncement = (eventId) => {
-    return db.run(sql`DELETE FROM "Event" WHERE "eventId" = ${eventId}`);
+    return db.run(sql`DELETE FROM "UserProfile" WHERE "announcements" = ${eventId}`);
 }
 
 exports.addtoUserProfile = (userId, announ) => {

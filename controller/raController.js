@@ -34,7 +34,7 @@ exports.homepage = (req, res) => {
             }
         }
     }
-    console.log(event)
+    //console.log(event)
     res.render('HomePage', { event, person });
 };
 
@@ -158,7 +158,9 @@ exports.CreatedAnnouncementsRA = (req, res) => {
     const dayofweek = new Date(startDateTime);
     const day = dayofweek.getDay();
 
-    
+    if (checkDates(req.body.annDate, req.body.annRecurDateend) < 0){
+        req.body.annRecurDateend = req.body.annDate;    
+    }
     
     db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annDate, req.body.annRecurDateend, req.body.annRepeat)
     res.redirect('/RA');
@@ -169,6 +171,7 @@ exports.deleteAnnouncement = (req, res) => {
     let id = req.params.id;
 
     db.deleteEvent(id)
+    db.deleteAnnouncement(id);
 
     res.redirect('/RA');
 };

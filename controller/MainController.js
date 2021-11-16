@@ -18,30 +18,34 @@ exports.login = (req, res) => {
 exports.eventDetails = (req, res, next) => {
     let id = req.params.id
     let event = db.getEvent(id)
-    var days;
+    //var days;
     
-    if (event.repeat == "Daily") {
+    // if (event.repeat == "Daily") {  
+
+    //     var rnglist = db.checkRngList(id, req.session.user.roomId);
+    //     console.log(rnglist2);
+    //     var rnglist2 = JSON.parse(rnglist.length);
+    //     console.log(rnglist2);
+    //     if (rnglist2 == 0) {
+    //         var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
+    //         rndmlist = JSON.stringify(rndmlist);
+    //         db.addtoRngList(req.session.user.roomId, id, rndmlist)
+    //     }
+
+    //     var list = db.checkRngList(id, req.session.user.roomId);
+    //     var list2 = JSON.parse(list[0].rndmlist);
+
+    //     days = checkDates(event.startRecur, event.endRecur);
+    //     days = Math.floor(days);
         
-        if (db.checkRngList(id, req.session.user.roomId).length == 0) {
-            var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
-            rndmlist = JSON.stringify(rndmlist);
-            db.addtoRngList(id, req.session.user.roomId, rndmlist)
-        }
+    //     if (list2.length > days) {
+    //         days = list2[days];
+    //     }else {
+    //         days =-1;
+    //     }
+    // }else if(event.repeat == "Weekly") {
 
-        var list = db.checkRngList(id, req.session.user.roomId);
-        var list2 = JSON.parse(list[0].rndmlist);
-
-        days = getdays(event.startRecur);
-        days = Math.floor(days);
-
-        if (list2.length > days) {
-            days = list2[days];
-        }else {
-            days =-1;
-        }
-    }else if(event.repeat == "Weekly") {
-
-    }
+    // }
 
     var going;
     if (db.getGoing(req.session.user.userId, id).length == 0) {
@@ -54,7 +58,8 @@ exports.eventDetails = (req, res, next) => {
     count = Object.values(count)[0];
 
     if (event) {
-        res.render('Event_details', { event, moment, going, count, days })
+        res.render('Event_details', { event, moment, going, count})
+        //add days for random
     } else {
         let err = new Error('Cannot find a event with id ' + id);
         err.status = 404;
@@ -118,8 +123,6 @@ exports.update = (req, res, next) => {
         req.body.eRecurDateend = req.body.edate;    
     }
 
-    
-
     db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
 
     if (req.session.user.role === 'Student') {
@@ -177,19 +180,6 @@ function getrandomuserweekly(eventId, roomId) {
 
 };
 
-function getdays(start) {
-    var date1 = new Date(start);
-    //needs to be changes for different days
-    var date2 = new Date("2021-11-7");
-
-    // To calculate the time difference of two dates
-    var Difference_In_Time = date2.getTime() - date1.getTime();
-
-    // To calculate the no. of days between two dates
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-    return Difference_In_Days;
-};
 function checkDates(start , end) {
     var date1 = new Date(start);
     //needs to be changes for different days

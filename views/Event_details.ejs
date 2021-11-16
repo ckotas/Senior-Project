@@ -37,10 +37,7 @@
             </ul>
             <% if(event.roomId == 0){%>
                 <p>Participants: <%= count %></p>
-                <% } %> 
-                <% if(event.repeat != "None"&& days != -1){%>
-                    <p>Assigned Roomate: <%= days %></p>
-                    <% } %>
+                <% } %>           
             </main>
         </body>
         <%- include('partials/footer') -%>
