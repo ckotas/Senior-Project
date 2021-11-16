@@ -154,18 +154,9 @@ exports.CreatedAnnouncementsRA = (req, res) => {
     const dayofweek = new Date(startDateTime);
     const day = dayofweek.getDay();
 
-    var dayofweek2 = new Date(req.body.eRecurDateend);
-    var endrecur = dayofweek2.getDate();
-    dayofweek2.setDate(endrecur + 1);
-
-
-    var date = dayofweek2.getUTCDate();
-    var month = dayofweek2.getMonth();
-    var year = dayofweek2.getFullYear();
-
-    recur = (year) + "-" + (month + 1) + "-" + date;
-
-    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annRecurDateend, recur, req.body.annRepeat)
+    
+    
+    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annDate, req.body.annRecurDateend, req.body.annRepeat)
     res.redirect('/RA');
 };
 
