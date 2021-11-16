@@ -16,15 +16,15 @@ exports.login = (req, res) => {
     res.render('login');
 };
 exports.eventDetails = (req, res, next) => {
-
     let id = req.params.id
     let event = db.getEvent(id)
-
     var days;
+    
     if (event.repeat == "Daily") {
-        var rndmlist = getrandomuser(id, req.session.user.roomId);
-        rndmlist = JSON.stringify(rndmlist);
+        
         if (db.checkRngList(id, req.session.user.roomId).length == 0) {
+            var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
+            rndmlist = JSON.stringify(rndmlist);
             db.addtoRngList(id, req.session.user.roomId, rndmlist)
         }
 
@@ -33,6 +33,7 @@ exports.eventDetails = (req, res, next) => {
 
         days = getdays(event.startRecur);
         days = Math.floor(days);
+
         if (list2.length > days) {
             days = list2[days];
         }else {
@@ -41,15 +42,17 @@ exports.eventDetails = (req, res, next) => {
     }else if(event.repeat == "Weekly") {
 
     }
+
     var going;
     if (db.getGoing(req.session.user.userId, id).length == 0) {
         going = 0;
     } else {
         going = 1;
     }
-    var count = db.countOfEvent(id);
 
+    var count = db.countOfEvent(id);
     count = Object.values(count)[0];
+
     if (event) {
         res.render('Event_details', { event, moment, going, count, days })
     } else {
@@ -126,7 +129,7 @@ exports.update = (req, res, next) => {
     }
 };
 
-function getrandomuser(eventId, roomId) {
+function getrandomuserdaily(eventId, roomId) {
     var event = db.getEvent(eventId);
     var date1 = new Date(event.startRecur);
     var date2 = new Date(event.endRecur);
@@ -141,6 +144,30 @@ function getrandomuser(eventId, roomId) {
     let roomates = db.getRoomates(roomId);
 
     for (var i = 0; i < Difference_In_Days; i++) {
+        var rng = Math.floor(Math.random() * roomates.length);
+        var name = roomates[rng].fName;
+        var lname = roomates[rng].lName;
+        users[i] = name + " " + lname;
+    };
+    return users;
+
+};
+
+function getrandomuserweekly(eventId, roomId) {
+    var event = db.getEvent(eventId);
+    var date1 = new Date(event.startRecur);
+    var date2 = new Date(event.endRecur);
+
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    let users = [];
+
+    let roomates = db.getRoomates(roomId);
+
+    for (var i = 0; i < Math.floor(Difference_In_Days/7); i++) {
         var rng = Math.floor(Math.random() * roomates.length);
         var name = roomates[rng].fName;
         var lname = roomates[rng].lName;
