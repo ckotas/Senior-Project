@@ -112,18 +112,9 @@ exports.update = (req, res, next) => {
     var dayofweek = new Date(startDateTime);
     var newday = dayofweek.getDay();
 
-    var dayofweek2 = new Date(req.body.eRecurDateend);
-    var endrecur = dayofweek2.getDate();
-    dayofweek2.setDate(endrecur + 1);
+    
 
-
-    var date = dayofweek2.getUTCDate();
-    var month = dayofweek2.getMonth();
-    var year = dayofweek2.getFullYear();
-
-    recur = (year) + "-" + (month + 1) + "-" + date;
-
-    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, recur, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
+    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
 
     if (req.session.user.role === 'Student') {
         res.redirect('/student');

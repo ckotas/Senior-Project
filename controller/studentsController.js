@@ -25,9 +25,11 @@ exports.homepage = (req, res) => {
                 delete event[i].startRecur
                 delete event[i].endRecur
             } else if (event[i].repeat === 'Daily') {
+                event[i].endRecur = endDate(event[i].endRecur);
                 event[i].daysOfWeek = ['0', '1', '2', '3', '4', '5', '6']
 
-            } else if (event.repeat === 'Weekly') {
+            } else if (event[i].repeat === 'Weekly') {
+                event[i].endRecur = endDate(event[i].endRecur);
                 let temp = event[i].daysOfWeek;
                 event[i].daysOfWeek = [temp];
             }
@@ -98,18 +100,9 @@ exports.createdEvent = (req, res) => {
     var dayofweek = new Date(startDateTime);
     var day = dayofweek.getDay();
     
-    var dayofweek2 = new Date(req.body.eRecurDateend);
-    var endrecur = dayofweek2.getDate();
-    dayofweek2.setDate(endrecur + 1);
     
 
-    var date =dayofweek2.getUTCDate();
-    var month = dayofweek2.getMonth();
-    var year =dayofweek2.getFullYear();
-
-    recur = (year) + "-" + (month+1) + "-" + date; 
-
-    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, recur, req.body.eRepeat)
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
     res.redirect('/student');
 };
 
@@ -117,3 +110,17 @@ exports.logout = (req, res) => {
     req.session.user = undefined;
     res.redirect('../');
 };
+
+
+function endDate(end){
+    var dayofweek2 = new Date(end);
+    var endrecur = dayofweek2.getDate();
+    dayofweek2.setDate(endrecur + 1); // keeps pushing the day out every time it is updated
+    
+
+    var date =dayofweek2.getUTCDate();
+    var month = dayofweek2.getMonth();
+    var year =dayofweek2.getFullYear();
+
+    return recur = (year) + "-" + (month+1) + "-" + date; 
+}
