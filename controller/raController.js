@@ -34,6 +34,7 @@ exports.homepage = (req, res) => {
             }
         }
     }
+    console.log(event)
     res.render('HomePage', { event, person });
 };
 
@@ -115,6 +116,9 @@ exports.createdEventRa = (req, res) => {
     //get day of week
     const dayofweek = new Date(startDateTime);
     const day = dayofweek.getDay();
+    if (checkDates(req.body.edate, req.body.eRecurDateend) < 0){
+        req.body.eRecurDateend = req.body.edate;    
+    }
 
 
     db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
@@ -178,6 +182,10 @@ function endDate(end){
     var date =dayofweek2.getUTCDate();
     var month = dayofweek2.getMonth();
     var year =dayofweek2.getFullYear();
+
+    if (date < 10){
+        date = "0" + date
+    }
 
     return recur = (year) + "-" + (month+1) + "-" + date; 
 }

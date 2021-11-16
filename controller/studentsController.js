@@ -93,12 +93,16 @@ exports.createEvent = (req, res) => {
 
 exports.createdEvent = (req, res) => {
     //Get proper time format
-    var startDateTime = req.body.edate + "T" + req.body.eSTime;
-    var endDateTime = req.body.edate + "T" + req.body.eETime;
+    var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
+    var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
 
     //get day of week
     var dayofweek = new Date(startDateTime);
     var day = dayofweek.getDay();
+    console.log(checkDates(req.body.edate, req.body.eRecurDateend))
+    if (checkDates(req.body.edate, req.body.eRecurDateend) < 0){
+        req.body.eRecurDateend = req.body.edate;    
+    }
     
     
 
@@ -121,6 +125,24 @@ function endDate(end){
     var date =dayofweek2.getUTCDate();
     var month = dayofweek2.getMonth();
     var year =dayofweek2.getFullYear();
-
+    
+    if (date < 10){
+        date = "0" + date
+    }
+    
+    
     return recur = (year) + "-" + (month+1) + "-" + date; 
 }
+function checkDates(start , end) {
+    var date1 = new Date(start);
+    //needs to be changes for different days
+    var date2 = new Date(end);
+
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days;
+};
