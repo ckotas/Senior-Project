@@ -99,7 +99,7 @@ exports.createdEvent = (req, res) => {
     //get day of week
     var dayofweek = new Date(startDateTime);
     var day = dayofweek.getDay();
-    console.log(checkDates(req.body.edate, req.body.eRecurDateend))
+    
     if (checkDates(req.body.edate, req.body.eRecurDateend) < 0){
         req.body.eRecurDateend = req.body.edate;    
     }
