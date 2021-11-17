@@ -1,20 +1,39 @@
 <%- include('partials/header') -%>
 
-    
 
-        <body>
+
+        <body class="createmessage-page-body">
             <main>
-                <h1>Create Message</h1>
-                <form id="CreateMessage" method="POST" action="./CreateMessage">
-                    <label for="messagesubject"> Subject:</label>
-                    <input type="text" id="messagesubject" name="messagesubject">
-                    <label for="messagedetails"> Details: </label>
-                    <textarea name="details" id="messagedetails"></textarea>
-                    <input type="checkbox" id="anonymous" name="anonymous" value="yes">
+                <h1 class="createmessage-text">Create Message</h1>
+                <div class=create-message-container">
+                <form id="CreateMessage" class="createmessage-form" method="POST" action="./CreateMessage">
+                  <div class="create-message-row">
+                <div class="create-message-column-1">
+                  <label for="messagesubject" class="messagesubject-text">Subject:</label>
+                </div>
+                <div class="create-message-column-2">
+                  <input type="text" id="messagesubject" name="messagesubject">
+                </div>
+              </div>
+              <div class="create-message-row">
+                <div class="create-message-column-1">
+                  <label for="messagedetails" class="messagedetails-text">Details : </label>
+                </div>
+                <div class="create-message-column-2">
+                  <textarea name="details" id="messagedetails"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="create-message-column-3">
+                <input type="checkbox" id="anonymous" name="anonymous" value="yes">
                     <label for="anonymous"> Anonymous </label>
-                    <input type="submit" value="Submit">
+              </div>
+              <div class="create-message-column-4">
+                <input type="submit" value="Submit">
+              </div>
                 </form>
+                </div>
 
-            </main>
-        </body>
+                </main>
+                      </body>
         <%- include('partials/footer') -%>

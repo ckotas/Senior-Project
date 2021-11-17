@@ -19,67 +19,79 @@
                                 </td>
 
                                 <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
-                                <th rowspan="2" class="announcement-going">
+                                <th rowspan="2" class="announcement-view">
                                     <form>
-                                        <button type="submit" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
+                                        <button type="submit" class="view-button" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
                                     </form>
+                                    </th>
+                                    <th rowspan="2" class="announcement-going">
                                     <form>
-                                        <button type="submit" formmethod="POST" formaction="/student/going/<%= announ[x].eventId%>">Going</button>
+                                        <button type="submit" class="going-button" formmethod="POST" formaction="/student/going/<%= announ[x].eventId%>">Going</button>
                                     </form>
                                 </th>
                             </tr>
                             <tr>
-                                <td class="announcement-color">
-                                    <%= announ[x].backgroundColor %>
+                                <td class="announcement-color" style="background-color: <%= announ[x].backgroundColor %>" >
                                 </td>
                             </tr>
+                              <tr class="spacer"><td></td></tr>
                             <% } %>
                         </tbody>
                     </table>
             </div>
 
             <%} else if (user.role==='RA' ) {%>
-                <h1>Announcements Page</h1>
-                <div class="announcementList">
-                    
-                        <table>
+                <h1 class="announcement-text">Announcements Page</h1>
+                <div class="announcement-container">
+
+                        <table class="announcement-list-RA">
                             <tbody>
                                 <% for( var x=0; x < announ.length; x++){ %>
                                     <tr>
                                         <td>
                                            <%= announ[x].type %> Event
                                         </td>
-        
-                                        <th rowspan="2" class="detail-announcement"> <%= announ[x].title %></th>
-                                        <th rowspan="2" class="announcement-going">
+
+                                        <th rowspan="2" class="detail-announcement-RA"> <%= announ[x].title %></th>
+                                        <th rowspan="2" class="announcement-view">
                                             <form>
-                                                <button type="submit" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
+                                                <button type="submit" class="view-button" formmethod="GET" formaction="/<%= announ[x].url%>">View</button>
                                             </form>
+                                            </th>
+                                            <th rowspan="2" class="announcement-going">
                                             <form>
-                                                <button type="submit" formmethod="POST" formaction="/RA/going/<%= announ[x].eventId%>">Going</button>
+                                                <button type="submit" class="going-button" formmethod="POST" formaction="/RA/going/<%= announ[x].eventId%>">Going</button>
                                             </form>
+
+                                        </th>
+                                        <th rowspan="2" class="announcement-edit">
+                                          <form>
+                                             <button type="submit" class="edit-announcement-button" formmethod="GET" formaction="/RA/<%= announ[x].eventId%>/edit">Edit</button>
+                                             </form>
+                                             </th>
+                                          <th rowspan="2" class="announcement-delete">
+                                            <form>
+                                              <button type="submit" class="delete-announcement-button" formmethod="POST" formaction="/RA/<%= announ[x].eventId%>?_method=DELETE">Delete</button>
+                                           </form>
+
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td class="announcement-color">
-                                            <%= announ[x].backgroundColor %>
+                                        <td class="announcement-color" style="background-color: <%= announ[x].backgroundColor %>" >
+
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <form>
-                                           <td> <button type="submit" formmethod="GET" formaction="/RA/<%= announ[x].eventId%>/edit">Edit</button> </td>
-                                           <td> <button type="submit" formmethod="POST" formaction="/RA/<%= announ[x].eventId%>?_method=DELETE">Delete</button></td>
-                                        </form>
-                                    </tr>
+                                    <tr class="spacer"><td></td></tr>
+
                                     <% } %>
-                                
+
                             </tbody>
 
                         </table>
-                    
+
 
                     <form method="get" action="/RA/CreateAnnouncementsRA">
-                        <button type="submit">Create</button>
+                        <button type="submit" class="create-announcement-button">Create New Announcement</button>
                     </form>
 
                 </div>

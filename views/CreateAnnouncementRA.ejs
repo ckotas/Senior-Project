@@ -2,47 +2,73 @@
 
 
 
-    <body>
+    <body class="create-event-body-page">
         <main>
-            <h1>Create Announcement</h1>
-            <form id="CreateAnnouncmentsRA" method="POST" action="/RA/CreateAnnouncementsRA">
-                <label for="annTitle"> Title:</label>
-                <input type="text" id="annTitle" name="annTitle">
+            <h1 class="create-event-text">Create Announcement</h1>
 
-                <label for="annType"> Type:</label>
-                <select name="annType" id="annType">
+            <div class="create-announcement-ra-table-container">
+            <form id="CreateAnnouncmentsRA" method="POST" action="/RA/CreateAnnouncementsRA">
+              <table class="create-event-table">
+                <tr>
+                  <th>Title:</th>
+                  <td colspan="3"><input type="text" class="event-title-td" id="annTitle" name="annTitle" required></td>
+                </tr>
+                <tr>
+                  <th>Type:</th>
+                  <td><select name="annType" id="annType" required>
                     <option value="Dorm">Dorm</option>
                     <option value="School">School</option>
                     <option value="Floor">Floor</option>
-                </select>
-
-                <label for="anncolor" >Color:</label> <input type="color" id="annColor" name="annColor"></li>
-                <label for="annTextcolor" >Text Color:</label> <select id="annTextcolor" name="annTextcolor">
+                </select></td>
+                  <th>Color:</th>
+                  <td><input type="color" id="annColor" name="annColor"></td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <td></td>
+                  <th>Text Color:</th>
+                  <td><select id="annTextcolor" name="annTextcolor">
                     <option value="Black">Black</option>
-                    <option value="White">White</option>
+                    <option value="White">White</option></td>
+                </tr>
+                <tr>
+                  <th rowspan="2">Start Date:</th>
+                  <td rowspan="2"><input type="date" id="annDate" name="annDate"></td>
+                </tr>
+              <tr>
+                <th>Start Time:</th>
+                <td><input type="time" id="annStartTime" name="annStartTime"></td>
 
-                    <label for="annDate"> Date:</label>
-                    <input type="date" id="annDate" name="annDate">
+              </tr>
+              <tr>
+                <th rowspan="2">End Date:</th>
+                <td rowspan="2"><input type="date" id="annRecurDateend"
+                        name="annRecurDateend"></td>
+                <th>End Time:</th>
+                <td><input type="time" id="annEndTime" name="annEndTime"></td>
 
-                    <label for="annStartTime"> Start Time:</label>
-                    <input type="time" id="annStartTime" name="annStartTime">
-
-                    <label for="annEndTime"> End Time:</label>
-                    <input type="time" id="annEndTime" name="annEndTime">
-
-                    <label for="annRepeat">Repeat:</label>
-                    <select name="annRepeat" id="annRepeat">
+              </tr>
+              <tr>
+                <th>Repeat Event:</th>
+                <td><select name="annRepeat" id="annRepeat">
                         <option value="None">None</option>
                         <option value="Daily">Daily</option>
                         <option value="Weekly">Weekly</option>
-                    </select>
-                    <label for="annRecurDateend">End Date:</label> <input type="date" id="annRecurDateend"
-                        name="annRecurDateend">
-                    <label for="annDesc"> Event description:</label>
-                    <textarea name="annDesc" id="annDesc"></textarea>
+                    </select></td>
+              </tr>
+              <tr >
+                <th class="event-description-row">Description:</th>
+                <td colspan="3"><textarea name="annDesc" class="event-description-td" id="annDesc"></textarea></td>
 
-                    <input type="submit" value="Create Announcement">
+              </tr>
+
+              <tr>
+                <td colspan="4" class="create-event-button-td"><input type="submit" class="create-event-button" value="Create Announcement"></td>
+              </tr>
+
+              </table>
             </form>
+            </div>
         </main>
     </body>
     <%- include('partials/footer') -%>

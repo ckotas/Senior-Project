@@ -1,30 +1,81 @@
 <%- include('partials/header') -%>
 
-    
 
-        <body>
-            <main>
-                <h1>View Message</h1>
-                <form id="ViewMessage" method="POST" action="../updatemessage/<%= message.messageId%>?_method=PUT">
 
-                    <%if(message.anonymous){%>
-                        <label for="messagesender"> Room: <%= message.roomId %> </label>
-                    <%}else{%>
-                        <label for="messagesender"> From: <%= name.fName + " " + name.lName %> </label>
-                    <%}%>
+<body class="viewmessage-page-body">
+  <main>
+    <h1 class="viewmessage-text">View Message</h1>
+
+    <div class="ViewMessage-table-container">
+    <form id="ViewMessage" method="POST" action="../updatemessage/<%= message.messageId%>?_method=PUT">
+      <table class="ViewMessage-table">
+        <colgroup>
+          <col class="ViewMessage-col-1">
+          <col >
+
+        </colgroup>
+        <tr>
+          <%if(message.anonymous){%>
+          <td>Room:</td>
+          <%}else{%>
+          <td>From:</td>
+          <%}%>
+          <%if(message.anonymous){%>
+          <td class="message-sender-info"><%= message.roomId %></td>
+          <%}else{%>
+          <td class="message-sender-info"><%= name.fName + " " + name.lName %></td>
+          <%}%>
+        </tr>
+
+        <tr>
+          <td> Subject:</td>
+          <td class="message-subject-info"><%= message.subject %></td>
+        </tr>
+
+        <tr class="ViewMessage-detail-row">
+          <td>Details:</td>
+          <td class="message-content-info"><%= message.message %></td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <span>
+              <label for="messageRA">RA:</label>
+              <input class="input-RA-name" type="text" id="messageRA" name="messageRA" value="<%= message.TA %>">
+            </span>
+
+            <span class="resolved-button-viewmessage">
+              <label for="resolved"> Resolved: </label>
+              <input class type="checkbox" id="resolved" name="resolved" value="1">
+            </span>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="update-ViewMessage-button-row"><button type="submit" id="formButton" class="update-ViewMessage-button">Update Message</button></td>
+        </tr>
+      </table>
+
+      <!--<%if(message.anonymous){%>
+      <label for="messagesender"> Room: <%= message.roomId %> </label>
+      <%}else{%>
+      <label for="messagesender"> From: <%= name.fName + " " + name.lName %> </label>
+      <%}%>
 
                     <label for="messagesubject"> Subject:<%= message.subject %></label>
 
-                    <label for="messagedetails"> Details: <%= message.message %></label>
+      <label for="messagedetails"> Details: <%= message.message %></label>
 
-                    <label for="messageRA"> RA:</label>
-                    <input type="text" id="messageRA" name="messageRA" value="<%= message.TA %>">
+      <label for="messageRA"> RA:</label>
+      <input type="text" id="messageRA" name="messageRA" value="<%= message.TA %>">
 
-                    <input type="checkbox" id="resolved" name="resolved" value="1">
-                    <label for="resolved"> Resolved </label>
-                    <button type="submit"  id="formButton" >Update Message</button>
-                </form>
+      <input type="checkbox" id="resolved" name="resolved" value="1">
+      <label for="resolved"> Resolved </label>
+      <button type="submit" id="formButton">Update Message</button>-->
+    </form>
+    </div>
 
-            </main>
-        </body>
-        <%- include('partials/footer') -%>
+  </main>
+</body>
+<%- include('partials/footer') -%>

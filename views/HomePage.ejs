@@ -1,11 +1,11 @@
 <%- include('partials/header') -%>
 
-    
+
 <script>
     var temp = '<%- JSON.stringify(event) %>';
     if (temp.length > 0){
     temp = JSON.parse(temp)
-    
+
     document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -18,7 +18,7 @@
           right: 'dayGridDay, dayGridMonth'
         },
         events: temp
-        
+
 
       });
       calendar.render();
@@ -35,13 +35,13 @@
           center: 'title',
           right: 'dayGridDay, dayGridMonth'
         }
-        
+
 
       });
       calendar.render();
     });
   }
-    
+
     console.log(temp)
   </script>
 

@@ -2,70 +2,89 @@
 
 
 
-    <body>
+    <body class="inboxRA-page-body">
         <main>
-            <h1>Inbox</h1>
+          <div class="inboxRA-container">
+            <h1 class="inboxRA-text">Inbox</h1>
             <div class="unresolved">
-                <h2>Unresolved</h2>
-                <table>
-                    <th>
-                    <td>From Room:</td>
-                    <td>Subject:</td>
-                    <td>RA Asssigned</td>
-                    </th>
+                <h2 class="unresolved-text">Unresolved Messages</h2>
+                <div class="unresolved-container">
+                <table class="unresolved-table">
+                  <colgroup>
+                      <col class="room-number-col">
+                      <col class="subject-col">
+                      <col class="ra-assigned-col">
+                      <col>
+                    </colgroup>
+                    <tr>
+                    <th class="ra-assigned-th">Room #</th>
+                    <th class="subject-th">Subject</th>
+                    <th class="ra-assigned-th">RA Asssigned</th>
+                    <th class="ra-assigned-th"> Edit </th>
+                    </tr>
                     <% for( var x=0; x < unresmess.length; x++){ %>
                         <tr>
-                            <td>
+                            <td class="roomno-td">
                                 <%= unresmess[x].roomId %>
                             </td>
                             <td>
                                 <%= unresmess[x].subject %>
                             </td>
-                            <td>
+                            <td class="ra-assigned-td">
                                 <% if(unresmess[x].TA==null||unresmess[x].TA=='' ) {%>
                                     <input type="checkbox" name="status" disabled="disabled">
                                     <% }else{ %>
                                         <input type="checkbox" name="status" disabled="disabled" checked>
                                         <% } %>
                             </td>
-                            <td> <a href="./message/<%=unresmess[x].messageId%>">Update</a></td>
+                            <td class="status-td"> <a class="update-inbox-button" href="./message/<%=unresmess[x].messageId%>">Update</a></td>
                         </tr>
                         <% } %>
                 </table>
+                </div>
             </div>
             <div class="resolved">
-                <h2>Resolved</h2>
-                <table>
-                    <thead>
-                        <td>From Room:</td>
-                        <td>Subject:</td>
-                        <td>RA Asssigned</td>
-                    </thead>
-                    <tbody>
+                <h2 class="unresolved-text">Resolved</h2>
+                <div class="unresolved-container">
+                <table class="unresolved-table">
+                  <colgroup>
+                    <col class="room-number-col">
+                    <col class="subject-col">
+                    <col class="ra-assigned-col">
+                    <col>
+                  </colgroup>
+                  <tr>
+                  <th class="ra-assigned-th">Room #</th>
+                  <th class="subject-th">Subject</th>
+                  <th class="ra-assigned-th">RA Asssigned</th>
+                  <th class="ra-assigned-th"> Edit </th>
+                  </tr>
+
                         <% for( var x=0; x < resmess.length; x++){ %>
-                            <div>
+
                                 <tr>
-                                    <td>
+                                    <td class="roomno-td">
                                         <%= resmess[x].roomId %>
                                     </td>
                                     <td>
                                         <%= resmess[x].subject %>
                                     </td>
-                                    <td>
+                                    <td class="ra-assigned-td">
                                         <% if(resmess[x].TA==null || resmess[x].TA=='' ) {%>
                                             <input type="checkbox" name="status" disabled="disabled">
                                             <% }else{ %>
                                                 <input type="checkbox" name="status" disabled="disabled" checked>
                                                 <% } %>
                                     </td>
-                                    <td> <a href="./message/<%=resmess[x].messageId%>">Update</a></td>
+                                    <td class="status-td"> <a class="update-inbox-button" href="./message/<%=resmess[x].messageId%>">Update</a></td>
                                 </tr>
-                            </div>
                             <% } %>
-                    </tbody>
-                </table>
-            </div>
 
+                </table>
+                </div>
+
+                </div>
+                </div>
         </main>
     </body>
     <%- include('partials/footer') -%>
