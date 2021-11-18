@@ -43,7 +43,7 @@ exports.inbox = (req, res) => {
     var unresmess = db.getUnResolvedMessage();
 
     if (resmess || unresmess) {
-        res.render('inboxRA', { resmess, unresmess })
+        res.render('InboxRA', { resmess, unresmess })
     } else {
         let err = new Error('Cannot find a event with id ' + id);
         err.status = 404;
