@@ -12,7 +12,7 @@ const methodOverride = require('method-override');
 // db.createUser("Aryani", "Patel ", "Student", "apate223@uncc.edu", "password", "1");
 // db.createUser("Evette", "Hernandez", "Student", "eterhonh@uncc.edu", "password", "1");
 // db.createUser("Adam", "Hill", "Student", "ahill113@uncc.edu", "password", "3");
-// db.createUser("Austin", "Hill", "Student", "ahill112@uncc.edu", "password", "3");
+// db.createUser("Austin", "Hill", "RA", "ahill112@uncc.edu", "password", "3");
 // db.createUser("Christian", "Kotas", "RA", "ckotas@uncc.edu", "password", "4");
 // db.createUser("Truong", "LastN", "RA", "tdang7@uncc.edu", "password", "5");
 
