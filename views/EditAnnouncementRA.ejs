@@ -15,9 +15,7 @@
                     </tr>
                     <tr>
                       <th>Type:</th>
-                      <td><select type="text" id="eType" name="eType" value="<%= event.type%>" required><option value="Dorm">Dorm</option>
-                            <option value="School">School</option>
-                            <option value="Floor">Floor</option>
+                      <td><select type="text" id="eType" name="eType" value="<%= event.type%>" required>
                             <% if(event.type == 'Dorm'){%>
                                     <option value="Dorm" selected>Dorm</option>
                                     <option value="School">School</option>

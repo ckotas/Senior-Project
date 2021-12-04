@@ -3,19 +3,19 @@
     <body class="announcement-body-page">
         <main>
 
-            <Form id="createEvent" action='./createStudent' method='POST'>
+            <Form id="createEvent" action='../createstudent' method='POST'>
                 <table>
                     <tr>
                         <th>First Name:</th>
-                        <td><input type="text" id="fNAme" name="fNAme" required></td>
+                        <td><input type="text" id="fName" name="fName" required></td>
                     </tr>
                     <tr>
                         <th>Last Name:</th>
-                        <td><input type="text" id="lNAme" name="lNAme" required></td>
+                        <td><input type="text" id="lName" name="lName" required></td>
                     </tr>
                     <tr>
                         <th>UNCC Email:</th>
-                        <td><input type="email" id="email" pattern=".+@uncc.edu" required></td>
+                        <td><input type="email" id="email" pattern=".+@uncc.edu" name="email" required></td>
                     </tr>
                     <tr>
                         <th>Room Number:</th>
@@ -25,12 +25,12 @@
                     <tr>
                         <th>Role:</th>
                         <td><select id="role" name="role" required>
-                                <option value="Staff">Staff</option>
+                                <option value="staff">Staff</option>
                                 <option value="RA">RA</option>
                                 <option value="Student">Student</option>
                         </td>
                     </tr>
-
+                    <button type="submit" id="formButton" >Add Student</button>
                 </table>
 
             </Form>

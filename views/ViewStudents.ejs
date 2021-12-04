@@ -13,11 +13,20 @@
                    <th>Role</th> 
                    <th>Room ID</th> 
                 </tr>
-                <tr>
-                    
-                </tr>
-            </table>
 
+                    <% for( var x=0; x < students.length; x++){ %>
+                        <tr>
+                            <td> <%=students[x].fName %></td>
+                            <td> <%=students[x].lName %></td>
+                            <td> <%=students[x].email %></td>
+                            <td> <%=students[x].role %></td>
+                            <td> <%=students[x].roomId %></td>
+                            <td> <a href="./updatestudent/<%=students[x].userId%>">Update</a></td>
+                        </tr>
+                        <% } %> 
+
+            </table>
+            <a href="./newstudent/">Add a new student</a>
 
         </main>
     </body>

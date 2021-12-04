@@ -58,7 +58,7 @@ exports.createDatabase = () => {
         FOREIGN KEY("sender") REFERENCES Users("userId")
     );
 `);
-    
+
 }
 
 
@@ -84,12 +84,12 @@ exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, d
     if (startRecur && endRecur) {
         db.run(
             sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
         );
     } else {
         db.run(
             sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","repeat","title","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/'+ uniqueId},${backgroundColor},${textColor},${daysOfWeek},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${repeat},${title},${description},${type}, ${id}, ${roomId})`
         );
     }
 }
@@ -103,7 +103,7 @@ exports.deleteEvent = (eventId) => {
 exports.getEvents = (roomId) => {
     return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
-exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecur, eRecur, repeat, title, description, type, eventId)=>{
+exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecur, eRecur, repeat, title, description, type, eventId) => {
     db.run(
         sql`UPDATE "Event"
             SET "start" = ${start}, "end" = ${end}, "backgroundColor" = ${backgroundColor}, "textColor" = ${textColor},"daysOfWeek" = ${daysOfWeek}, 
@@ -113,10 +113,10 @@ exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecu
 };
 exports.createMessage = (sender, roomId, subject, message, anonymous, date, time) => {
     let id = uid(16);
-        db.run(
-            sql`INSERT INTO "Message" ("messageId", "sender","roomId","subject", "message", "anonymous", "date", "time", "resolved") VALUES
+    db.run(
+        sql`INSERT INTO "Message" ("messageId", "sender","roomId","subject", "message", "anonymous", "date", "time", "resolved") VALUES
             (${id},${sender},${roomId},${subject},${message},${anonymous},${date},${time}, ${0})`
-        );
+    );
 }
 exports.getMessage = (messageId) => {
     return db.get(sql`SELECT * FROM "Message" WHERE "messageId" = ${messageId}`);
@@ -130,7 +130,7 @@ exports.getUnResolvedMessage = () => {
     return db.all(sql`SELECT * FROM "Message" WHERE "resolved" = ${0}`);
 }
 
-exports.updateMessage = (resolved, RA, id)=>{
+exports.updateMessage = (resolved, RA, id) => {
     db.run(
         sql`UPDATE "Message"
             SET "resolved" = ${resolved}, "TA" = ${RA}
@@ -139,7 +139,7 @@ exports.updateMessage = (resolved, RA, id)=>{
 };
 
 exports.getAnnouncements = () => {
-   return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
+    return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${0}`);
 }
 
 exports.deleteAnnouncement = (eventId) => {
@@ -147,18 +147,18 @@ exports.deleteAnnouncement = (eventId) => {
 }
 
 exports.addtoUserProfile = (userId, announ) => {
-   db.run(sql`INSERT INTO "UserProfile" ("userId", "announcements") VALUES (${userId}, ${announ})`);
+    db.run(sql`INSERT INTO "UserProfile" ("userId", "announcements") VALUES (${userId}, ${announ})`);
 };
 
- exports.getGoing = (userId, announ) => {
+exports.getGoing = (userId, announ) => {
     return db.all(sql`SELECT * FROM "UserProfile" WHERE "userId" = ${userId} and "announcements" = ${announ}`);
- };
+};
 
- exports.getUserAnnouncemetns= (userId) => {
+exports.getUserAnnouncemetns = (userId) => {
     return db.all(sql`SELECT "announcements" FROM "UserProfile" WHERE "userId" = ${userId}`);
- };
+};
 
- exports.removeUserattending = (userId, announ) => {
+exports.removeUserattending = (userId, announ) => {
     return db.run(sql`DELETE FROM "UserProfile" WHERE "userId" = ${userId} and announcements = ${announ}`);
 }
 
@@ -166,18 +166,35 @@ exports.countOfEvent = (eventId) => {
     return db.get(sql`SELECT COUNT("userId") FROM "UserProfile" WHERE "announcements" = ${eventId}`);
 }
 
-exports.getRoomates= (roomId) => {
+exports.getRoomates = (roomId) => {
     return db.all(sql`SELECT * FROM "Users" WHERE "roomId" = ${roomId}`);
- };
+};
 
- exports.addtoRngList = (roomId, eventId, rndmlist) => {
+exports.addtoRngList = (roomId, eventId, rndmlist) => {
     db.run(sql`INSERT INTO "randomRM" ("roomId", "eventId", "rndmlist") VALUES (${roomId}, ${eventId}, ${rndmlist})`);
- };
+};
 
- exports.checkRngList = (roomId, eventId) => {
+exports.checkRngList = (roomId, eventId) => {
     return db.all(sql`SELECT * FROM "randomRM" WHERE "roomId" = ${roomId} and "eventId" = ${eventId}`);
- };
+};
 
- exports.deleteMessage = (messageId) => {
+exports.deleteMessage = (messageId) => {
     return db.run(sql`DELETE FROM "Message" WHERE "messageId" = ${messageId}`);
 }
+
+exports.getStudents = () => {
+    return db.all(sql`SELECT * FROM "Users"`);
+}
+
+exports.getStudent = (id) => {
+    return db.get(sql`SELECT * FROM "Users" WHERE "userId" = ${id}`);
+}
+
+exports.updateStudent = (userId, fName, lName, role, email, roomId) => {
+    db.run(
+        sql`UPDATE "Users"
+                SET "fName" = ${fName}, "lName" = ${lName}, "role" = ${role},"email" = ${email}, 
+                 "roomId" = ${roomId}
+                WHERE "userId" = ${userId}`
+    )
+};

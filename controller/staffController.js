@@ -179,6 +179,35 @@ exports.removeMessage = (req, res) => {
     db.deleteMessage(messageid);
     res.redirect('/staff/inbox')
 };
+exports.viewstudents = (req, res) => {
+    var students = db.getStudents();
+    res.render('ViewStudents',{students})
+};
+
+exports.newstudent = (req, res) => {
+
+    res.render('CreateStudent')
+};
+
+exports.createstudent = (req, res) => {
+
+    db.createUser(req.body.fName, req.body.lName, req.body.role, req.body.email, "password", req.body.roomID);
+
+    res.redirect('/staff/ViewStudents')
+};
+//gets
+exports.updatestudent = (req, res) => {
+    var student = db.getStudent(req.params.id);
+    
+    res.render('UpdateStudents',{student})
+};
+//posts
+exports.updatestudents = (req, res) => {
+    var studentId = req.params.id;
+
+    db.updateStudent(studentId, req.body.fName, req.body.lName, req.body.role, req.body.email, req.body.roomID);
+    res.redirect('/staff/ViewStudents')
+};
 function endDate(end){
     var dayofweek2 = new Date(end);
     var endrecur = dayofweek2.getDate();

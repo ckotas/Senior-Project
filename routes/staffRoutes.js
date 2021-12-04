@@ -33,6 +33,16 @@ router.put('/updatemessage/:id', controller.updateMessage);
 
 router.get('/CreateAnnouncementsRA', controller.CreateAnnouncementsRA);
 
+router.get('/viewstudents', controller.viewstudents);
+
+router.get('/newstudent', controller.newstudent);
+
+router.post('/createstudent', controller.createstudent);
+
+router.get('/updatestudent/:id', controller.updatestudent);
+
+router.post('/updatestudent/:id', controller.updatestudents);
+
 router.post('/CreateAnnouncementsRA', controller.CreatedAnnouncementsRA);
 
 router.get('/', controller.homepage);
