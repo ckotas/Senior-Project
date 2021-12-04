@@ -42,7 +42,7 @@ exports.createDatabase = () => {
         "type" TEXT NOT NULL,
         "roomId" INTEGER NOT NULL,
         "creator" INTEGER NOT NULL,
-        "Random" BOOL,
+        "Random" BOOL NOT NULL,
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
@@ -80,17 +80,17 @@ exports.getUserid = (id) => {
     return db.get(sql`SELECT fName, lName FROM "Users" WHERE "userId" = ${id}`);
 }
 
-exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, description, type, id, roomId, startRecur, endRecur, repeat) => {
+exports.addEvent = (start, end, backgroundColor, textColor, daysOfWeek, title, description, type, id, roomId, startRecur, endRecur, repeat, Random) => {
     var uniqueId = uid(15);
     if (startRecur && endRecur) {
         db.run(
-            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","startRecur","endRecur","repeat","title","description","type","creator", "roomId", Random) VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${startRecur},${endRecur},${repeat},${title},${description},${type}, ${id}, ${roomId}, ${Random})`
         );
     } else {
         db.run(
-            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","repeat","title","description","type","creator", "roomId") VALUES
-            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${repeat},${title},${description},${type}, ${id}, ${roomId})`
+            sql`INSERT INTO "Event" ("eventId","start","end" ,"url","backgroundColor","textColor","daysOfWeek","repeat","title","description","type","creator", "roomId", Random) VALUES
+            (${uniqueId},${start},${end},${'./eventDetails/' + uniqueId},${backgroundColor},${textColor},${daysOfWeek},${repeat},${title},${description},${type}, ${id}, ${roomId}, ${Random})`
         );
     }
 }
@@ -104,11 +104,11 @@ exports.deleteEvent = (eventId) => {
 exports.getEvents = (roomId) => {
     return db.all(sql`SELECT * FROM "Event" WHERE "roomId" = ${roomId}`);
 }
-exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecur, eRecur, repeat, title, description, type, eventId) => {
+exports.updateEvent = (start, end, backgroundColor, textColor, daysOfWeek, sRecur, eRecur, repeat, title, description, type, eventId, Random) => {
     db.run(
         sql`UPDATE "Event"
             SET "start" = ${start}, "end" = ${end}, "backgroundColor" = ${backgroundColor}, "textColor" = ${textColor},"daysOfWeek" = ${daysOfWeek}, 
-            "startRecur" = ${sRecur}, "endRecur" = ${eRecur}, "repeat" = ${repeat}, "title" = ${title}, "description" = ${description}, "type" = ${type}
+            "startRecur" = ${sRecur}, "endRecur" = ${eRecur}, "repeat" = ${repeat}, "title" = ${title}, "description" = ${description}, "type" = ${type}, "Random" = ${Random}
             WHERE "eventId" = ${eventId}`
     )
 };

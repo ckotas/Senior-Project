@@ -114,6 +114,8 @@ exports.edit = (req, res, next) => {
 
 exports.update = (req, res, next) => {
     let id = req.params.id;
+    let event = db.getEvent(id)
+    var Random = req.body.Random;
     //Get proper time format
     var startDateTime = req.body.edate + "T" + req.body.eSTime;
     var endDateTime = req.body.edate + "T" + req.body.eETime;
@@ -125,7 +127,13 @@ exports.update = (req, res, next) => {
         req.body.eRecurDateend = req.body.edate;    
     }
 
-    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id);
+    if (Random == null || event.roomId == 000) {
+        Random = 0;
+    } else {
+        Random = 1;
+    }
+
+    db.updateEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, newday.toString(), req.body.edate, req.body.eRecurDateend, req.body.eRepeat, req.body.eTitle, req.body.eDescription, req.body.eType, id, Random);
 
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
