@@ -10,8 +10,8 @@
   <link rel="stylesheet" type="text/css" href="/assets/stylesheets/project.css">
   <link href='../../assets/fullcalendar/main.css' rel='stylesheet' />
   <script src='../../assets/fullcalendar/main.js'></script>
- 
-  
+
+
 </head>
 <header>
   <div class="banner">
@@ -19,15 +19,12 @@
     <a href="/"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies" id=hImage> </a>
   </div>
 
-  <% if (user.role === 'null') {
-
-  }
-   else if(user.role === 'Student' ) {%>
+  <% if (user.role==='null' ) { } else if(user.role==='Student' ) {%>
     <nav class="NavBar">
       <div class="navigation-bar">
         <div class="logo-container">
-          <a class="nav-logo" href="/student"> <img src="../../assets/images/banner.png"
-              alt="49er Dorm Buddies" id=hImage>
+          <a class="nav-logo" href="/student"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies"
+              id=hImage>
           </a>
         </div>
         <div class="main-nav">
@@ -42,13 +39,12 @@
       </div>
     </nav>
 
-    <%} else if (user.role === 'RA' ) {%>
+    <%} else if (user.role==='RA' ) {%>
 
       <nav class="NavBar">
         <div class="navigation-bar">
           <div class="logo-container">
-            <a class="nav-logo" href="/RA"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies"
-                id=hImage>
+            <a class="nav-logo" href="/RA"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies" id=hImage>
             </a>
           </div>
           <div class="main-nav">
@@ -62,6 +58,27 @@
           </div>
         </div>
       </nav>
-      <%}%>
+      <%} else if (user.role==='staff' ) {%>
+
+        <nav class="NavBar">
+          <div class="navigation-bar">
+            <div class="logo-container">
+              <a class="nav-logo" href="/staff"> <img src="../../assets/images/banner.png" alt="49er Dorm Buddies"
+                  id=hImage>
+              </a>
+            </div>
+            <div class="main-nav">
+              <a class="nav-option" href="/staff">Home</a>
+              <a class="nav-option" href="/staff/inbox">Inbox</a>
+              <a class="nav-option" href="/staff/announcements">Announcements</a>
+              <a class="nav-option" href="/staff/createEvent">Create Event</a>
+              <a class="nav-option" href="/staff/students">View Students</a>
+            </div>
+            <div class="nav-logout">
+              <a class="nav-option-logout" href="/student/logout">Logout</a>
+            </div>
+          </div>
+        </nav>
+        <%}%>
 
 </header>
