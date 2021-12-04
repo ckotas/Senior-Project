@@ -21,6 +21,12 @@
                     <th class="subject-th">Subject</th>
                     <th class="ra-assigned-th">RA Asssigned</th>
                     <th class="ra-assigned-th"> Edit </th>
+                   
+                    <%if(user.role =='staff'){%>
+                        <form>
+                            <th class="ra-assigned-th"> Delete</th>
+                        </form>
+                        <%}%>
                     </tr>
                     <% for( var x=0; x < unresmess.length; x++){ %>
                         <tr>
@@ -38,6 +44,11 @@
                                         <% } %>
                             </td>
                             <td class="status-td"> <a class="update-inbox-button" href="./message/<%=unresmess[x].messageId%>">Update</a></td>
+                            <%if(user.role =='staff'){%>
+                                <form>
+                                    <td><button type="submit" formmethod="POST" formaction="./message/<%=unresmess[x].messageId%>/delete">Delete</button></td>
+                                </form>
+                                <%}%>
                         </tr>
                         <% } %>
                 </table>
@@ -58,6 +69,11 @@
                   <th class="subject-th">Subject</th>
                   <th class="ra-assigned-th">RA Asssigned</th>
                   <th class="ra-assigned-th"> Edit </th>
+                  <%if(user.role =='staff'){%>
+                    <form>
+                        <th class="ra-assigned-th"> Delete</th>
+                    </form>
+                    <%}%>
                   </tr>
 
                         <% for( var x=0; x < resmess.length; x++){ %>
@@ -77,6 +93,11 @@
                                                 <% } %>
                                     </td>
                                     <td class="status-td"> <a class="update-inbox-button" href="./message/<%=resmess[x].messageId%>">Update</a></td>
+                                    <%if(user.role =='staff'){%>
+                                        <form>
+                                        <td><button type="submit" formmethod="POST" formaction="./message/<%=resmess[x].messageId%>/delete">Delete</button></td>
+                                    </form>
+                                        <%}%>
                                 </tr>
                             <% } %>
 

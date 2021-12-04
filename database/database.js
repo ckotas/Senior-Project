@@ -177,3 +177,7 @@ exports.getRoomates= (roomId) => {
  exports.checkRngList = (roomId, eventId) => {
     return db.all(sql`SELECT * FROM "randomRM" WHERE "roomId" = ${roomId} and "eventId" = ${eventId}`);
  };
+
+ exports.deleteMessage = (messageId) => {
+    return db.run(sql`DELETE FROM "Message" WHERE "messageId" = ${messageId}`);
+}

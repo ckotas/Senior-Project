@@ -174,7 +174,11 @@ exports.deleteAnnouncement = (req, res) => {
 
     res.redirect('/staff');
 };
-
+exports.removeMessage = (req, res) => {
+    var messageid = req.params.id;
+    db.deleteMessage(messageid);
+    res.redirect('/staff/inbox')
+};
 function endDate(end){
     var dayofweek2 = new Date(end);
     var endrecur = dayofweek2.getDate();

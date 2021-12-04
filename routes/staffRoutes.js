@@ -27,6 +27,8 @@ router.get('/logout', controller.logoutRA);
 
 router.get('/message/:id', controller.viewMessage);
 
+router.post('/message/:id/delete', controller.removeMessage);
+
 router.put('/updatemessage/:id', controller.updateMessage);
 
 router.get('/CreateAnnouncementsRA', controller.CreateAnnouncementsRA);
