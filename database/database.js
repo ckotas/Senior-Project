@@ -42,6 +42,7 @@ exports.createDatabase = () => {
         "type" TEXT NOT NULL,
         "roomId" INTEGER NOT NULL,
         "creator" INTEGER NOT NULL,
+        "Random" BOOL,
         FOREIGN KEY("creator") REFERENCES Users("userId")
     );
     CREATE TABLE "Message"(
