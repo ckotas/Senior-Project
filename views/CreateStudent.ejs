@@ -1,0 +1,40 @@
+<%- include('partials/header') -%>
+
+    <body class="announcement-body-page">
+        <main>
+
+            <Form id="createEvent" action='./createStudent' method='POST'>
+                <table>
+                    <tr>
+                        <th>First Name:</th>
+                        <td><input type="text" id="fNAme" name="fNAme" required></td>
+                    </tr>
+                    <tr>
+                        <th>Last Name:</th>
+                        <td><input type="text" id="lNAme" name="lNAme" required></td>
+                    </tr>
+                    <tr>
+                        <th>UNCC Email:</th>
+                        <td><input type="email" id="email" pattern=".+@uncc.edu" required></td>
+                    </tr>
+                    <tr>
+                        <th>Room Number:</th>
+                        <td><input type="text" id="roomID" name="roomID" required></td>
+
+                    </tr>
+                    <tr>
+                        <th>Role:</th>
+                        <td><select id="role" name="role" required>
+                                <option value="Staff">Staff</option>
+                                <option value="RA">RA</option>
+                                <option value="Student">Student</option>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </Form>
+
+        </main>
+    </body>
+    <%- include('partials/footer') -%>
