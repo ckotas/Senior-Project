@@ -18,34 +18,69 @@ exports.login = (req, res) => {
 exports.eventDetails = (req, res, next) => {
     let id = req.params.id
     let event = db.getEvent(id)
-    //var days;
+    var days;
     
-    // if (event.repeat == "Daily") {  
+    if (event.repeat == "Daily") {  
 
-    //     var rnglist = db.checkRngList(id, req.session.user.roomId);
-    //     console.log(rnglist2);
-    //     var rnglist2 = JSON.parse(rnglist.length);
-    //     console.log(rnglist2);
-    //     if (rnglist2 == 0) {
-    //         var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
-    //         rndmlist = JSON.stringify(rndmlist);
-    //         db.addtoRngList(req.session.user.roomId, id, rndmlist)
-    //     }
 
-    //     var list = db.checkRngList(id, req.session.user.roomId);
-    //     var list2 = JSON.parse(list[0].rndmlist);
-
-    //     days = checkDates(event.startRecur, event.endRecur);
-    //     days = Math.floor(days);
+        var rnglist = db.checkRngList(req.session.user.roomId, id);
+        console.log
+        if (rnglist == undefined || rnglist.endDate != event.endRecur) {
+            var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
+            rndmlist = JSON.stringify(rndmlist);
+            db.addtoRngList(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
+            rnglist = db.checkRngList(req.session.user.roomId, id);
+        }
         
-    //     if (list2.length > days) {
-    //         days = list2[days];
-    //     }else {
-    //         days =-1;
-    //     }
-    // }else if(event.repeat == "Weekly") {
+        
+        
+        
+        var list2 = JSON.parse(rnglist[0].rndmlist);
 
-    // }
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        days = checkDates(event.startRecur, today);
+        days = Math.floor(days);
+        
+        if (list2.length > days) {
+            days = list2[days];
+        }else {
+            days =-1;
+        }
+    }else if(event.repeat == "Weekly") {
+        var rnglist = db.checkRngList(req.session.user.roomId, id);
+        console.log
+        if (rnglist == undefined || rnglist.endDate != event.endRecur) {
+            var rndmlist = getrandomuserweekly(id, req.session.user.roomId);
+            rndmlist = JSON.stringify(rndmlist);
+            db.addtoRngList(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
+            rnglist = db.checkRngList(req.session.user.roomId, id);
+        }
+        
+        
+        
+        
+        var list2 = JSON.parse(rnglist[0].rndmlist);
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        days = checkDates(event.startRecur, today);
+        days = Math.floor(days/7);
+        
+        if (list2.length > days) {
+            days = list2[days];
+        }else {
+            days =-1;
+        }
+    }
 
     var going;
     if (db.getGoing(req.session.user.userId, id).length == 0) {
@@ -58,7 +93,7 @@ exports.eventDetails = (req, res, next) => {
     count = Object.values(count)[0];
 
     if (event) {
-        res.render('Event_details', { event, moment, going, count})
+        res.render('Event_details', { event, moment, going, count, days})
         //add days for random
     } else {
         let err = new Error('Cannot find a event with id ' + id);
@@ -90,6 +125,7 @@ exports.delete = (req, res, next) => {
 
 
     db.deleteEvent(id)
+    db.deleterdm(id)
     if (req.session.user.role === 'Student') {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {
@@ -162,6 +198,7 @@ function getrandomuserdaily(eventId, roomId) {
         var lname = roomates[rng].lName;
         users[i] = name + " " + lname;
     };
+    
     return users;
 
 };

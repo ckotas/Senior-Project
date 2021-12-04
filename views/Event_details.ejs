@@ -42,7 +42,10 @@
                         <th>Participants Going:</th>
                         <td><%= count %></td>
                         <% } %>
-                        
+                <% if(days != -1){%>
+                          <th>Random User:</th>
+                          <td><%= days %></td>
+                <% } %>    
               </tr>
               <tr>
                 <% if(user.userId == event.creator && !(event.roomId == 0)){%>

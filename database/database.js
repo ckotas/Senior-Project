@@ -24,7 +24,8 @@ exports.createDatabase = () => {
         "roomId" TEXT,
         "eventId" TEXT,
         "rndmlist" TEXT,
-        "endDate" TEXT 
+        "endDate" TEXT ,
+        "repeatType" TEXT 
     );
     CREATE TABLE "Event"(
         "eventId" TEXT PRIMARY KEY,
@@ -171,8 +172,8 @@ exports.getRoomates = (roomId) => {
     return db.all(sql`SELECT * FROM "Users" WHERE "roomId" = ${roomId}`);
 };
 
-exports.addtoRngList = (roomId, eventId, rndmlist) => {
-    db.run(sql`INSERT INTO "randomRM" ("roomId", "eventId", "rndmlist") VALUES (${roomId}, ${eventId}, ${rndmlist})`);
+exports.addtoRngList = (roomId, eventId, rndmlist, endDate, repeatType) => {
+    db.run(sql`INSERT INTO "randomRM" ("roomId", "eventId", "rndmlist", "endDate" , "repeatType") VALUES (${roomId}, ${eventId}, ${rndmlist}, ${endDate}, ${repeatType})`);
 };
 
 exports.checkRngList = (roomId, eventId) => {
@@ -199,3 +200,6 @@ exports.updateStudent = (userId, fName, lName, role, email, roomId) => {
                 WHERE "userId" = ${userId}`
     )
 };
+exports.deleterdm = (eventId) => {
+    return db.run(sql`DELETE FROM "randomRM" WHERE "eventId" = ${eventId}`);
+}

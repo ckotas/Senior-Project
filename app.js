@@ -9,7 +9,7 @@ const raRoutes = require('./routes/raRoutes');
 const db = require('./database/database');
 const methodOverride = require('method-override');
 
-//db.createDatabase();
+// db.createDatabase();
 // db.createUser("FNAME", "LNAME", "staff", "test1@uncc.edu", "password", "4");
 // db.createUser("Aryani", "Patel ", "Student", "apate223@uncc.edu", "password", "1");
 // db.createUser("Evette", "Hernandez", "Student", "eterhonh@uncc.edu", "password", "1");
