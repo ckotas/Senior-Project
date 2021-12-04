@@ -20,18 +20,25 @@ exports.eventDetails = (req, res, next) => {
     let event = db.getEvent(id)
     var days;
     
-    if (event.repeat == "Daily") {  
+    if (event.repeat == "Daily" && event.Random == 1) {  
 
 
         var rnglist = db.checkRngList(req.session.user.roomId, id);
-        console.log
-        if (rnglist == undefined || rnglist.endDate != event.endRecur) {
+        
+        if (rnglist == '') {
             var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
             rndmlist = JSON.stringify(rndmlist);
             db.addtoRngList(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
             rnglist = db.checkRngList(req.session.user.roomId, id);
         }
-        
+        rnglist = db.checkRngList(req.session.user.roomId, id);
+        if (rnglist.endDate != event.endRecur || rnglist.repeatType != event.repeat){
+            
+            var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
+            rndmlist = JSON.stringify(rndmlist);
+            db.updaterdm(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
+            rnglist = db.checkRngList(req.session.user.roomId, id);
+        }
         
         
         
@@ -51,16 +58,23 @@ exports.eventDetails = (req, res, next) => {
         }else {
             days =-1;
         }
-    }else if(event.repeat == "Weekly") {
+    }else if(event.repeat == "Weekly" && event.Random == 1) {
         var rnglist = db.checkRngList(req.session.user.roomId, id);
-        console.log
-        if (rnglist == undefined || rnglist.endDate != event.endRecur) {
+        
+        if (rnglist == '') {
             var rndmlist = getrandomuserweekly(id, req.session.user.roomId);
             rndmlist = JSON.stringify(rndmlist);
             db.addtoRngList(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
             rnglist = db.checkRngList(req.session.user.roomId, id);
         }
-        
+        rnglist = db.checkRngList(req.session.user.roomId, id);
+        if (rnglist.endDate != event.endRecur || rnglist.repeatType != event.repeat){
+            
+            var rndmlist = getrandomuserweekly(id, req.session.user.roomId);
+            rndmlist = JSON.stringify(rndmlist);
+            db.updaterdm(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
+            rnglist = db.checkRngList(req.session.user.roomId, id);
+        }
         
         
         
@@ -91,7 +105,7 @@ exports.eventDetails = (req, res, next) => {
 
     var count = db.countOfEvent(id);
     count = Object.values(count)[0];
-
+    
     if (event) {
         res.render('Event_details', { event, moment, going, count, days})
         //add days for random
@@ -130,6 +144,8 @@ exports.delete = (req, res, next) => {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {
         res.redirect('/RA');
+    } else if (req.session.user.role === 'staff') {
+        res.redirect('/staff');
     }
 };
 
@@ -175,6 +191,8 @@ exports.update = (req, res, next) => {
         res.redirect('/student');
     } else if (req.session.user.role === 'RA') {
         res.redirect('/RA');
+    } else if (req.session.user.role === 'staff') {
+        res.redirect('/staff');
     }
 };
 

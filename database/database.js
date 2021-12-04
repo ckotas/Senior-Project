@@ -203,3 +203,10 @@ exports.updateStudent = (userId, fName, lName, role, email, roomId) => {
 exports.deleterdm = (eventId) => {
     return db.run(sql`DELETE FROM "randomRM" WHERE "eventId" = ${eventId}`);
 }
+exports.updaterdm = (roomId, eventId, rndmlist, endDate, repeatType) => {
+    db.run(
+        sql`UPDATE "randomRM"
+                SET "rndmlist" = ${rndmlist}, "endDate" = ${endDate}, "repeatType" = ${repeatType}
+                WHERE "roomId" = ${roomId} and "eventId" = ${eventId}`
+    )
+};

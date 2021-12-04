@@ -109,6 +109,7 @@ exports.createEventRa = (req, res) => {
 
 exports.createdEventRa = (req, res) => {
     //Get proper time format
+    var Random = req.body.Random;
     var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
     var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
 
@@ -118,9 +119,13 @@ exports.createdEventRa = (req, res) => {
     if (checkDates(req.body.edate, req.body.eRecurDateend) < 0){
         req.body.eRecurDateend = req.body.edate;    
     }
+    if (Random == null) {
+        Random = 0;
+    } else {
+        Random = 1;
+    }
 
-
-    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat, Random)
     res.redirect('/staff');
 };
 
@@ -161,7 +166,7 @@ exports.CreatedAnnouncementsRA = (req, res) => {
         req.body.annRecurDateend = req.body.annDate;    
     }
     
-    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annDate, req.body.annRecurDateend, req.body.annRepeat)
+    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annDate, req.body.annRecurDateend, req.body.annRepeat, 0)
     res.redirect('/staff');
 };
 
