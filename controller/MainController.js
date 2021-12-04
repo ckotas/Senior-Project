@@ -77,6 +77,8 @@ exports.loggingIn = (req, res) => {
             res.redirect('/student');
         } else if (user.role === 'RA') {
             res.redirect('/RA');
+        }else if (user.role === 'Staff') {
+            res.redirect('/staff');
         }
     } else {
         res.redirect('/login');

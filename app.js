@@ -4,6 +4,7 @@ app.use('/assets', express.static('assets'));
 var bodyParser = require('body-parser');
 const mainRoutes = require('./routes/mainRoutes');
 const studentRoutes = require('./routes/studentsRoutes');
+const staffRoutes = require('./routes/staffRoutes');
 const raRoutes = require('./routes/raRoutes');
 const db = require('./database/database');
 const methodOverride = require('method-override');
@@ -59,6 +60,8 @@ app.use('/', mainRoutes);
 app.use('/student', studentRoutes);
 
 app.use('/RA', raRoutes);
+
+app.use('/staff', staffRoutes);
 
 
 app.use((req, res, next)=> {
