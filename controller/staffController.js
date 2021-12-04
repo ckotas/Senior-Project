@@ -48,3 +48,159 @@ exports.inbox = (req, res) => {
         next(err);
     }
 };
+
+exports.viewMessage = (req, res) => {
+    var id = req.params.id;
+    var message = db.getMessage(id);
+    var name = db.getUserid(message.sender);
+    if (message) {
+        res.render('ViewMessage', { message, name })
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
+};
+exports.updateMessage = (req, res) => {
+
+    var resolved = req.body.resolved;
+    var ra = req.body.messageRA;
+    var id = req.params.id;
+
+    if (resolved == null) {
+        resolved = 0;
+    } else {
+        resolved = 1;
+    }
+
+    db.updateMessage(resolved, ra, id);
+
+    res.redirect('../inbox')
+};
+
+exports.anouncementRA = (req, res) => {
+    let announ = db.getAnnouncements();
+
+    res.render('Announcements', { announ });
+};
+
+exports.going = (req, res, next) => {
+
+    let id = req.params.id
+    var user = req.session.user.userId;
+    
+    if( db.getGoing(user, id).length == 0){
+        db.addtoUserProfile(user, id);
+    }
+
+    res.redirect('/staff');
+};
+
+exports.removeAnnoun = (req, res) => {
+    let id = req.params.id
+    var user = req.session.user.userId;
+    db.removeUserattending(user, id);
+    res.redirect('/staff');
+};
+
+exports.createEventRa = (req, res) => {
+    res.render('CreateEvent');
+};
+
+exports.createdEventRa = (req, res) => {
+    //Get proper time format
+    var startDateTime = req.body.edate + "T" + req.body.eSTime + ":00";
+    var endDateTime = req.body.edate + "T" + req.body.eETime + ":00";
+
+    //get day of week
+    const dayofweek = new Date(startDateTime);
+    const day = dayofweek.getDay();
+    if (checkDates(req.body.edate, req.body.eRecurDateend) < 0){
+        req.body.eRecurDateend = req.body.edate;    
+    }
+
+
+    db.addEvent(startDateTime, endDateTime, req.body.eColor, req.body.eTextcolor, day.toString(), req.body.eTitle, req.body.eDescription, req.body.eType, req.session.user.userId, req.session.user.roomId, req.body.edate, req.body.eRecurDateend, req.body.eRepeat)
+    res.redirect('/staff');
+};
+
+exports.logoutRA = (req, res) => {
+    req.session.user = undefined;
+    res.redirect('../');
+};
+
+exports.CreateAnnouncementsRA = (req, res) => {
+
+    res.render('CreateAnnouncementRA');
+};
+
+exports.EditAnnouncementsRA = (req, res) => {
+
+    let id = req.params.id;
+    let event = db.getEvent(id)
+    if (event) {
+        res.render('EditAnnouncementRA', { event })
+    } else {
+        let err = new Error('Cannot find a event with id ' + id);
+        err.status = 404;
+        next(err);
+    }
+};
+
+exports.CreatedAnnouncementsRA = (req, res) => {
+
+    //Get proper time format
+    var startDateTime = req.body.annDate + "T" + req.body.annStartTime + ":00";
+    var endDateTime = req.body.annDate + "T" + req.body.annEndTime + ":00";
+
+    //get day of week
+    const dayofweek = new Date(startDateTime);
+    const day = dayofweek.getDay();
+
+    if (checkDates(req.body.annDate, req.body.annRecurDateend) < 0){
+        req.body.annRecurDateend = req.body.annDate;    
+    }
+    
+    db.addEvent(startDateTime, endDateTime, req.body.annColor, req.body.annTextcolor, day.toString(), req.body.annTitle, req.body.annDesc, req.body.annType, req.session.user.userId, 000, req.body.annDate, req.body.annRecurDateend, req.body.annRepeat)
+    res.redirect('/staff');
+};
+
+exports.deleteAnnouncement = (req, res) => {
+
+    let id = req.params.id;
+
+    db.deleteEvent(id)
+    db.deleteAnnouncement(id);
+
+    res.redirect('/staff');
+};
+
+function endDate(end){
+    var dayofweek2 = new Date(end);
+    var endrecur = dayofweek2.getDate();
+    dayofweek2.setDate(endrecur + 1); // keeps pushing the day out every time it is updated
+    
+
+    var date =dayofweek2.getUTCDate();
+    var month = dayofweek2.getMonth();
+    var year =dayofweek2.getFullYear();
+
+    if (date < 10){
+        date = "0" + date
+    }
+
+    return recur = (year) + "-" + (month+1) + "-" + date; 
+}
+function checkDates(start , end) {
+    var date1 = new Date(start);
+    //needs to be changes for different days
+    var date2 = new Date(end);
+
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days;
+};
