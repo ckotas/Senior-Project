@@ -2,9 +2,10 @@
 
     <body class="announcement-body-page">
         <main>
-
+          <div class="createstudent-container">
+          <h1 class="create-event-text">Create Student</h1>
             <Form id="createEvent" action='../createstudent' method='POST'>
-                <table>
+                <table class="create-student-table">
                     <tr>
                         <th>First Name:</th>
                         <td><input type="text" id="fName" name="fName" required></td>
@@ -24,16 +25,20 @@
                     </tr>
                     <tr>
                         <th>Role:</th>
-                        <td><select id="role" name="role" required>
+                        <td class="create-student-role"><select id="role" name="role" required>
                                 <option value="staff">Staff</option>
                                 <option value="RA">RA</option>
                                 <option value="Student">Student</option>
                         </td>
                     </tr>
-                    <button type="submit" id="formButton" >Add Student</button>
-                </table>
 
+
+                </table>
+                <div class="create-button-container">
+                <button class="create-student-button" type="submit" id="formButton" >Add Student</button>
+                </div>
             </Form>
+            </div>
 
         </main>
     </body>

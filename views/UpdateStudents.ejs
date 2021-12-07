@@ -2,9 +2,10 @@
 
     <body class="announcement-body-page">
         <main>
-
+          <div class="createstudent-container">
+          <h1 class="create-event-text">Update Student</h1>
             <Form id="createEvent" action='../updatestudent/<%= student.userId %>' method='POST'>
-                <table>
+                <table class="create-student-table">
                     <tr>
                         <th>First Name:</th>
                         <td><input type="text" id="fName" name="fName" value="<%=student.fName %>" required></td>
@@ -24,8 +25,8 @@
                     </tr>
                     <tr>
                         <th>Role:</th>
-                        
-                        <td><select id="role" name="role" required>
+
+                        <td class="create-student-role"><select id="role" name="role" required>
                             <% if(student.role == 'staff'){%>
                                 <option value="staff" selected>Staff</option>
                                 <option value="RA">RA</option>
@@ -41,10 +42,13 @@
                        <% }%>
                         </td>
                     </tr>
-                    <button type="submit" id="formButton" >Update Student</button>
-                </table>
 
+                </table>
+                  <div class="create-button-container">
+                  <button class="create-student-button" type="submit" id="formButton" >Update Student</button>
+                  </div>
             </Form>
+            </div>
 
         </main>
     </body>

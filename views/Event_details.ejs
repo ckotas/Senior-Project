@@ -19,33 +19,33 @@
             <table class="event-details-table">
               <tr>
                 <th>Category: </th>
-                <td><%= event.type%></td>
+                <td class="event-details-table-td"><%= event.type%></td>
               </tr>
               <tr>
                 <th>Date:</th>
-                <td><%= dateTime[0]%></td>
+                <td class="event-details-table-td"><%= dateTime[0]%></td>
               </tr>
               <tr>
                 <th>Time</th>
-                <td><%= start%>-<%= end%></td>
+                <td class="event-details-table-td"><%= start%>-<%= end%></td>
               </tr>
               <tr>
                 <th>Repeat:</th>
-                <td><%= event.repeat%></td>
+                <td class="event-details-table-td"><%= event.repeat%></td>
               </tr>
               <tr>
                 <th>Description:</th>
-                <td><%= event.description%></td>
+                <td class="event-details-table-td"><%= event.description%></td>
                 </tr>
               <tr>
                 <% if(event.roomId == 0){%>
                         <th>Participants Going:</th>
-                        <td><%= count %></td>
+                        <td class="event-details-table-td"><%= count %></td>
                         <% } %>
                 <% if(days != -1 && event.Random == 1){%>
                           <th>Random User:</th>
-                          <td><%= days %></td>
-                <% } %>    
+                          <td class="event-details-table-td"><%= days %></td>
+                <% } %>
               </tr>
               <tr>
                 <% if(user.userId == event.creator && !(event.roomId == 0)){%>

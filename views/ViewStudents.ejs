@@ -5,13 +5,15 @@
     <body class="announcement-body-page">
         <main>
 
-            <table>
+          <div class="viewstudents-container">
+            <h1 class="create-event-text">View Students</h1>
+            <table class="viewstudents-info">
                 <tr>
-                   <th>First Name</th> 
-                   <th>Last Name</th> 
-                   <th>Email</th> 
-                   <th>Role</th> 
-                   <th>Room ID</th> 
+                   <th>First Name</th>
+                   <th>Last Name</th>
+                   <th>Email</th>
+                   <th>Role</th>
+                   <th>Room ID</th>
                 </tr>
 
                     <% for( var x=0; x < students.length; x++){ %>
@@ -21,12 +23,15 @@
                             <td> <%=students[x].email %></td>
                             <td> <%=students[x].role %></td>
                             <td> <%=students[x].roomId %></td>
-                            <td> <a href="./updatestudent/<%=students[x].userId%>">Update</a></td>
+                            <td> <a class="update-viewstudents" href="./updatestudent/<%=students[x].userId%>">Update</a></td>
                         </tr>
-                        <% } %> 
+                        <% } %>
 
             </table>
-            <a href="./newstudent/">Add a new student</a>
+            <div class="viewstudent-container-button">
+            <a class="viewstudent-button" href="./newstudent/">Add a new student</a>
+            </div>
+            </div>
 
         </main>
     </body>
