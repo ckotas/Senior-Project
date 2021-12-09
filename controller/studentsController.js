@@ -20,7 +20,7 @@ exports.homepage = (req, res) => {
 
     } else {
         for (let i = 0; i < event.length; i++) {
-            event[i].title = escape(event[i].title.trim());
+            event[i].title = event[i].title.replace(/[^\w\s]/gi, '').trim();
             if (event[i].repeat === 'None') {
                 delete event[i].daysOfWeek
                 delete event[i].startRecur
