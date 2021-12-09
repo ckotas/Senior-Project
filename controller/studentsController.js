@@ -20,7 +20,6 @@ exports.homepage = (req, res) => {
 
     } else {
         for (let i = 0; i < event.length; i++) {
-            delete event.Random
             if (event[i].repeat === 'None') {
                 delete event[i].daysOfWeek
                 delete event[i].startRecur
