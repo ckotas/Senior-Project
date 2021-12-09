@@ -20,16 +20,17 @@ exports.homepage = (req, res) => {
 
     } else {
         for (let i = 0; i < event.length; i++) {
+            delete event.Random
             if (event[i].repeat === 'None') {
                 delete event[i].daysOfWeek
                 delete event[i].startRecur
                 delete event[i].endRecur
             } else if (event[i].repeat === 'Daily') {
-                event[i].endRecur = endDate(event[i].endRecur);
+                event[i].endRecur = JSON.parse(endDate(event[i].endRecur));
                 event[i].daysOfWeek = ['0', '1', '2', '3', '4', '5', '6']
 
             } else if (event[i].repeat === 'Weekly') {
-                event[i].endRecur = endDate(event[i].endRecur);
+                event[i].endRecur = JSON.parse(endDate(event[i].endRecur));
                 let temp = event[i].daysOfWeek;
                 event[i].daysOfWeek = [temp];
             }
@@ -123,21 +124,18 @@ exports.logout = (req, res) => {
 
 
 function endDate(end){
+
     var dayofweek2 = new Date(end);
     var endrecur = dayofweek2.getDate();
     dayofweek2.setDate(endrecur + 1); // keeps pushing the day out every time it is updated
+    date = JSON.stringify(dayofweek2)
+    date = date.split("T");
     
-
-    var date =dayofweek2.getUTCDate();
-    var month = dayofweek2.getMonth();
-    var year =dayofweek2.getFullYear();
-    
-    if (date < 10){
-        date = "0" + date
-    }
+    date = date[0] + '"';
     
     
-    return recur = (year) + "-" + (month+1) + "-" + date; 
+    
+    return  date;
 }
 function checkDates(start , end) {
     var date1 = new Date(start);

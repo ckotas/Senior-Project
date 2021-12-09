@@ -27,7 +27,7 @@ exports.eventDetails = (req, res, next) => {
         rnglist = db.checkRngList(req.session.user.roomId, id);
         
         if (rnglist.length == 0) {
-            console.log('empty')
+            
             var rndmlist = getrandomuserdaily(id, req.session.user.roomId);
             rndmlist = JSON.stringify(rndmlist);
             db.addtoRngList(req.session.user.roomId, id, rndmlist, event.endRecur, event.repeat)
@@ -61,7 +61,7 @@ exports.eventDetails = (req, res, next) => {
         }
     }else if(event.repeat == "Weekly" && event.Random == 1) {
         rnglist = db.checkRngList(req.session.user.roomId, id);
-        console.log(rnglist.length)
+        
         if (rnglist.length == 0) {
             var rndmlist = getrandomuserweekly(id, req.session.user.roomId);
             rndmlist = JSON.stringify(rndmlist);

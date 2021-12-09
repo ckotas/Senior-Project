@@ -21,7 +21,7 @@ exports.createDatabase = () => {
         "announcements" TEXT 
     );
     CREATE TABLE "randomRM"(
-        "roomId" TEXT,
+        "roomId" INTEGER,
         "eventId" TEXT,
         "rndmlist" TEXT,
         "endDate" TEXT ,
