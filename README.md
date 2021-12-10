@@ -8,5 +8,3 @@ Instructions to run the website:
 6. Once downloaded navigate to where you downloaded it and in the terminal run `npm install ` to install all of the necessary npm packages.
 7. Once that has finished run `nodemon app.js` or if that doesn’t work `npx nodemon app.js` to start the site.
 8. Your terminal will display the message "Server is running on port 3000" then you can find it on your localhost at port 3000 or click this link http://localhost:3000/
-9. To see the student view use  email: `test1@test.com` and password: `password` to login.
-10. To see the RA view use  email: `test2@test.com` and password: `password` to login.
